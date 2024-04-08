@@ -30,8 +30,8 @@ const nav = [
 
 const NarBar = () => {
   return (
-    <div className="flex justify-between h-20 mx-16 text-center items-center bg-gray-500 bg-opacity-30">
-      <div className="inline-flex divide-x space-x-4 divide-gray-700 items-center h-full">
+    <div className="flex justify-between h-20 text-center items-center bg-gray-500/30 w-full">
+      <div className="inline-flex shrink-0 divide-x space-x-4 divide-gray-700 items-center h-full">
         <div className="flex px-4 h-full">
           <Image
             src={"https://opensea.io/static/images/logos/opensea-logo.svg"}
@@ -56,10 +56,10 @@ const NarBar = () => {
           })}
         </ul>
       </div>
-      <div className="w-[100%] max-w-[400px] min-w-[300px]">
+      <div className="w-[100%] max-w-[400px] min-w-[300px] shrink-0">
         <SearchBox />
       </div>
-      <div className="mr-4">
+      <div className="mr-4 shrink-0 h-full flex items-center">
         <NavProfile />
       </div>
     </div>
