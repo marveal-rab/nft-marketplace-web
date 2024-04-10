@@ -30,7 +30,7 @@ const nav = [
 
 const NarBar = () => {
   return (
-    <div className="flex justify-between h-20 text-center items-center bg-gray-500/30 w-full">
+    <div className="flex justify-between h-20 text-center items-center w-full">
       <div className="inline-flex shrink-0 divide-x space-x-4 divide-gray-700 items-center h-full">
         <div className="flex px-4 h-full">
           <Image
@@ -40,10 +40,10 @@ const NarBar = () => {
             height={40}
           />
           <div className="h-full items-center content-center">
-            <span className="text-xl ml-4">Twin Capes</span>
+            <h1 className="text-lg ml-4">Twin Capes</h1>
           </div>
         </div>
-        <ul className="flex space-x-10 pl-8 items-center h-11">
+        <ul className="flex space-x-8 pl-8 items-center h-11">
           {nav.map((item, i) => {
             return (
               <NavItem

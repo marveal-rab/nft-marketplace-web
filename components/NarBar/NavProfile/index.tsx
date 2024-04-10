@@ -62,7 +62,7 @@ const nav = [
 const WalletLogin = () => {
   return (
     <div className="bg-gray-200 rounded-lg px-4 py-3 bg-opacity-10 hover:bg-opacity-5">
-      <button className="flex space-x-4">
+      <button className="flex space-x-3">
         <BiWallet className="" size={24} />
         <span className="font-bold">Login</span>
       </button>
@@ -76,7 +76,7 @@ const AvatarPopover: React.FC<AvatarPopoverProps> = ({ ...props }) => {
   const { className } = props;
   return (
     <div
-      className={`absolute top-[75px] right-0 text-left items-center p-4 bg-gray-950 border-gray-800 space-y-2 rounded-lg divide-y divide-gray-100/10 ${className}`}
+      className={`absolute top-[75px] right-0 text-left items-center p-4 bg-gray-950 border-gray-800 space-y-2 rounded-lg divide-y divide-gray-100/10 z-max ${className}`}
     >
       {nav &&
         nav.map((el, i) => {
@@ -88,7 +88,7 @@ const AvatarPopover: React.FC<AvatarPopoverProps> = ({ ...props }) => {
                     className={"w-auto rounded-lg hover:bg-gray-700"}
                     key={idx}
                   >
-                    <div className="flex text-md font-bold px-3 py-4 justify-between">
+                    <div className="flex text-base font-bold px-3 py-4 justify-between">
                       <div className="flex items-center space-x-5">
                         {item.icon}
                         <a href={item.href} className="">

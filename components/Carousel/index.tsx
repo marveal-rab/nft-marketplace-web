@@ -17,10 +17,7 @@ interface CardItem {
   description: string;
 }
 
-interface CarouselProps {
-  cards: number;
-  time?: number;
-}
+interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 interface SlideProps extends React.HTMLAttributes<HTMLDivElement> {
   items: CardItem[];
@@ -30,22 +27,22 @@ const Slide: React.FC<SlideProps> = ({ ...props }) => {
   const { items, className, onMouseEnter, onMouseLeave } = props;
   return (
     <div
-      className={`flex gap-8 justify-between mx-2 max-h-[420px] ${className}`}
+      className={`flex gap-6 justify-between mx-2 ${className}`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
       {items.map((el, i) => {
         return (
-          <div className="group relative w-full h-full" key={i}>
+          <div className="group relative max-w-[420px] max-h-[420px]" key={i}>
             <div className="rounded-xl overflow-hidden origin-center ">
               <img
                 src={el.image}
                 alt={el.title}
-                className="object-cover group-hover:scale-110 transition-transform duration-300 ease-in-out"
+                className="w-full h-full group-hover:scale-110 transition-transform duration-300 ease-in-out"
               />
             </div>
             <div className="p-2 absolute bottom-0">
-              <p className="text-md font-bold mb-2">{el.title}</p>
+              <p className="text-base font-bold mb-2">{el.title}</p>
               <p className="text-sm">{el.description}</p>
             </div>
           </div>
@@ -99,8 +96,10 @@ const Arrow: React.FC<ArrowProps> = ({
   );
 };
 
-const Carousel: React.FC<CarouselProps> = ({ cards = 4, time = 5000 }) => {
+const Carousel: React.FC<CarouselProps> = ({ ...props }) => {
   const [hover, setHover] = React.useState<boolean>(false);
+  const [cards, setCards] = React.useState<number>(4);
+  const [time, setTime] = React.useState<number>(5000);
 
   const items: CardItem[] = [
     {
@@ -154,7 +153,7 @@ const Carousel: React.FC<CarouselProps> = ({ cards = 4, time = 5000 }) => {
   ];
 
   return (
-    <div className="bg-gray-500/30 w-full py-4">
+    <div className="w-full py-4">
       <div
         className="slider-container"
         onMouseEnter={() => setHover(true)}
@@ -162,9 +161,11 @@ const Carousel: React.FC<CarouselProps> = ({ cards = 4, time = 5000 }) => {
       >
         <Slider
           infinite={true}
-          speed={500}
+          speed={700}
           slidesToShow={1}
           slidesToScroll={1}
+          autoplay={true}
+          autoplaySpeed={time}
           prevArrow={<Arrow hover={hover} direction="prev" />}
           nextArrow={<Arrow hover={hover} direction="next" />}
         >

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { FC, HTMLAttributes, useState } from "react";
+import React from "react";
 
-interface NavItemMetadata extends HTMLAttributes<HTMLElement> {
+interface NavItemMetadata extends React.HTMLAttributes<HTMLElement> {
   title: string;
   href: string;
 }
@@ -12,14 +12,13 @@ interface NavItemProps extends NavItemMetadata {
   popover?: NavItemMetadata[];
 }
 
-interface NavItemPopoverProps {
-  classes?: string;
+interface NavItemPopoverProps extends React.HTMLAttributes<HTMLDivElement> {
   subNav?: NavItemMetadata[];
 }
 
-const NavItem: FC<NavItemProps> = ({ ...props }) => {
+const NavItem: React.FC<NavItemProps> = ({ ...props }) => {
   const { title, href, popover, classes } = props;
-  const [isDropsBoxOpen, setIsDropsBoxOpen] = useState(false);
+  const [isDropsBoxOpen, setIsDropsBoxOpen] = React.useState(false);
 
   return (
     <>
@@ -32,28 +31,31 @@ const NavItem: FC<NavItemProps> = ({ ...props }) => {
           setIsDropsBoxOpen(false);
         }}
       >
-        <a href={href} className="text-lg no-underline cursor-pointer">
-          <span>{title}</span>
+        <a
+          href={href}
+          className="text-base font-extrabold no-underline cursor-pointer"
+        >
+          <h2>{title}</h2>
         </a>
         {popover && isDropsBoxOpen && (
-          <NavItemPopover subNav={popover} classes="top-11 left-0" />
+          <NavItemPopover subNav={popover} className="top-11 left-0" />
         )}
       </li>
     </>
   );
 };
 
-const NavItemPopover: FC<NavItemPopoverProps> = ({ ...props }) => {
-  const { subNav, classes } = props;
+const NavItemPopover: React.FC<NavItemPopoverProps> = ({ ...props }) => {
+  const { subNav, className } = props;
   return (
     <div
-      className={`absolute text-left items-center p-4 w-[200px] bg-gray-950 border-gray-800 space-y-2 rounded-lg ${classes}`}
+      className={`absolute text-left items-center p-4 w-[200px] bg-gray-950 border-gray-800 space-y-2 rounded-lg z-max ${className}`}
     >
       {subNav &&
         subNav.map((item, i) => {
           return (
             <div className={"w-auto rounded-lg hover:bg-gray-700"} key={i}>
-              <p className="text-md font-bold p-3">
+              <p className="text-base font-bold p-3">
                 <a href={item.href}>{item.title}</a>
               </p>
             </div>

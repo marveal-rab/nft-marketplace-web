@@ -45,7 +45,7 @@ const Category = () => {
   };
 
   return (
-    <div className="flex w-auto h-[80px] bg-gray-500/30">
+    <div className="flex w-auto h-[80px]">
       <div className="flex items-center ml-4 font-bold space-x-2 text-base">
         {categories &&
           categories.map((el, i) => {
