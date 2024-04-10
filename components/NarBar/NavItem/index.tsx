@@ -49,12 +49,15 @@ const NavItemPopover: React.FC<NavItemPopoverProps> = ({ ...props }) => {
   const { subNav, className } = props;
   return (
     <div
-      className={`absolute text-left items-center p-4 w-[200px] bg-gray-950 border-gray-800 space-y-2 rounded-lg z-max ${className}`}
+      className={`absolute text-left items-center p-4 w-[200px] bg-neutral-900 border-gray-800 space-y-2 rounded-lg z-max ${className}`}
     >
       {subNav &&
         subNav.map((item, i) => {
           return (
-            <div className={"w-auto rounded-lg hover:bg-gray-700"} key={i}>
+            <div
+              className={"w-auto rounded-lg hover:bg-neutral-500/20"}
+              key={i}
+            >
               <p className="text-base font-bold p-3">
                 <a href={item.href}>{item.title}</a>
               </p>

@@ -33,7 +33,9 @@ const categories = [
   },
 ];
 
-const Category = () => {
+const Category: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  ...props
+}) => {
   const [select, setSelect] = React.useState<number>(0);
 
   const clickCategory = (

@@ -1,4 +1,11 @@
-import { NarBar, Footer, Category, Carousel, Trend } from "@/components";
+import {
+  NarBar,
+  Footer,
+  Category,
+  Carousel,
+  Trend,
+  Showcase,
+} from "@/components";
 
 export default function Home() {
   return (
@@ -8,6 +15,7 @@ export default function Home() {
         <Category />
         <Carousel />
         <Trend />
+        <Showcase />
         <p>Hello World</p>
         <Footer />
       </div>

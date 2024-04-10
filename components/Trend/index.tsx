@@ -283,12 +283,12 @@ const ChainSelector: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
         <div
           className={`absolute bg-neutral-900 rounded-xl font-bold text-base text-neutral-400 top-12 -left-2`}
         >
-          <ul className="px-4 py-2">
+          <ul className="px-2 py-1">
             {items.map((el, index) => {
               return (
                 <li
                   key={index}
-                  className={`px-4 my-1 py-2 rounded-lg hover:bg-neutral-500/20  hover:text-neutral-50 cursor-pointer ${
+                  className={`px-6 my-1 py-2 rounded-lg hover:bg-neutral-500/20  hover:text-neutral-50 cursor-pointer ${
                     selected === index && "bg-neutral-500/20 text-neutral-50"
                   }`}
                   onClick={() => setSelected(index)}

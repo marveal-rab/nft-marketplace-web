@@ -28,7 +28,9 @@ const nav = [
   { title: "Create", href: "#" },
 ];
 
-const NarBar = () => {
+const NarBar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  ...props
+}) => {
   return (
     <div className="flex justify-between h-20 text-center items-center w-full">
       <div className="inline-flex shrink-0 divide-x space-x-4 divide-gray-700 items-center h-full">

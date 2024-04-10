@@ -76,7 +76,7 @@ const AvatarPopover: React.FC<AvatarPopoverProps> = ({ ...props }) => {
   const { className } = props;
   return (
     <div
-      className={`absolute top-[75px] right-0 text-left items-center p-4 bg-gray-950 border-gray-800 space-y-2 rounded-lg divide-y divide-gray-100/10 z-max ${className}`}
+      className={`absolute top-[75px] right-0 text-left items-center p-4 bg-neutral-900 border-gray-800 space-y-2 rounded-lg divide-y divide-gray-100/10 z-max ${className}`}
     >
       {nav &&
         nav.map((el, i) => {
@@ -85,7 +85,7 @@ const AvatarPopover: React.FC<AvatarPopoverProps> = ({ ...props }) => {
               {el.map((item, idx) => {
                 return (
                   <div
-                    className={"w-auto rounded-lg hover:bg-gray-700"}
+                    className={"w-auto rounded-lg hover:bg-neutral-500/20"}
                     key={idx}
                   >
                     <div className="flex text-base font-bold px-3 py-4 justify-between">
