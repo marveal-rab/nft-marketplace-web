@@ -32,7 +32,7 @@ const NarBar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   ...props
 }) => {
   return (
-    <div className="flex justify-between h-20 text-center items-center w-full">
+    <div className="flex justify-between h-20 text-center items-center w-full space-x-4">
       <div className="inline-flex shrink-0 divide-x space-x-4 divide-gray-700 items-center h-full">
         <div className="flex px-4 h-full">
           <Image
@@ -58,7 +58,7 @@ const NarBar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
           })}
         </ul>
       </div>
-      <div className="w-[100%] max-w-[400px] min-w-[300px] shrink-0">
+      <div className="flex-grow w-auto min-w-[200px] max-w-[400px]">
         <SearchBox />
       </div>
       <div className="mr-4 shrink-0 h-full flex items-center">

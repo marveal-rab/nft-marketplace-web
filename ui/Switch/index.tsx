@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+"use client";
+
+import React from "react";
 
 interface SwitchProps extends React.HTMLAttributes<HTMLDivElement> {
   isOn?: false | true;
@@ -8,7 +10,7 @@ const Switch: React.FC<SwitchProps> = ({ ...props }: SwitchProps) => {
   const { isOn, onClick, className } = props;
   const [on, setOn] = React.useState<boolean>(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isOn) {
       setOn(true);
     } else {

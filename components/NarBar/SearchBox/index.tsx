@@ -19,7 +19,7 @@ const SearchBoxButton: FC<SearchBoxButtonProps> = ({ ...props }) => {
   const { onClick, children } = props;
   return (
     <div
-      className="text-gray-50 text-center absolute end-3 h-6 w-6 bottom-4 bg-gray-400 rounded-md bg-opacity-30"
+      className="text-gray-50 text-center absolute end-3 h-6 w-6 bottom-3 bg-gray-400 rounded-md bg-opacity-30"
       onClick={onClick}
     >
       <span className="flex h-full w-full items-center justify-center text-xs">
@@ -55,7 +55,7 @@ const SearchBox = () => {
           </div>
           <input
             type="search"
-            className="block bg-opacity-30 w-full p-4 ps-10 text-base text-gray-100 border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-600 focus:outline-none"
+            className="block bg-opacity-30 w-full px-4 py-3 ps-10 text-base text-gray-100 border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-600 focus:outline-none"
             placeholder="Search"
             required
             value={searchText}

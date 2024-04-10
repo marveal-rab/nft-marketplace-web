@@ -4,9 +4,9 @@ import React, { useEffect } from "react";
 import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 /// internal imports
+import { Arrow, Carousel } from "@/ui";
 import "./styles.css";
 
 interface ShowcaseItemProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -27,11 +27,6 @@ interface ShowcaseData {
   link?: string;
 }
 
-interface ArrowProps extends React.HTMLAttributes<HTMLDivElement> {
-  hover: boolean;
-  direction?: "prev" | "next";
-}
-
 interface SlideProps extends Item, React.HTMLAttributes<HTMLDivElement> {
   title: string;
   floorPrice: number;
@@ -40,56 +35,17 @@ interface SlideProps extends Item, React.HTMLAttributes<HTMLDivElement> {
   href: string;
 }
 
-const Arrow: React.FC<ArrowProps> = ({
-  hover: hoverContainer,
-  direction,
-  ...props
-}) => {
-  const { onClick, style, className } = props;
-  const [hover, setHover] = React.useState<boolean>(false);
-
-  const isPrev = direction === "prev";
-  const isNext = direction === "next";
-
-  return (
-    <div
-      className={`${className} rounded-lg`}
-      style={{
-        ...style,
-        display: "flex",
-        width: "40px",
-        height: "100%",
-        alignItems: "center",
-        background: hover ? "#37415140" : "#37415100",
-        color: hoverContainer || hover ? "#e5e7ebAA" : "#e5e7eb00",
-        lineHeight: "40px",
-        textAlign: "center",
-        fontSize: "35px",
-        cursor: "pointer",
-        left: isPrev ? "-40px" : "auto",
-        right: isNext ? "-40px" : "auto",
-      }}
-      onClick={onClick}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-    >
-      {isPrev && <FaChevronLeft />}
-      {isNext && <FaChevronRight />}
-    </div>
-  );
-};
-
 const Slide: React.FC<SlideProps> = ({ ...props }) => {
-  const { title, floorPrice, totalVolume, image } = props;
+  const { title, floorPrice, totalVolume, image, className } = props;
   return (
-    <div className="max-w-[280px] max-h-[280px] ">
+    <div className={`group max-w-[280px] max-h-[280px] ${className}`}>
       <div className="relative rounded-xl h-full w-full overflow-hidden">
         <img src={image} alt={title} className="w-full h-full" />
-        <div className="absolute bottom-0 w-full bg-neutral-900 max-h-20">
+        <div className="absolute bottom-0 w-full bg-neutral-900 max-h-20 group-hover:bg-neutral-800">
           <p className="m-2 text-normal text-ellipsis whitespace-nowrap overflow-hidden">
             {title}
           </p>
-          <div className="flex justify-between mx-3 mb-1 text-neutral-400/30">
+          <div className="flex justify-between mx-3 mb-1 text-neutral-400/30 group-hover:text-neutral-400/70">
             <div className="w-1/2">
               <p className="text-xs text-ellipsis whitespace-nowrap overflow-hidden">
                 Floor Price
@@ -147,23 +103,21 @@ const ShowcaseItem: React.FC<ShowcaseItemProps> = ({ items, ...props }) => {
         },
       },
     ],
-    nextArrow: <Arrow hover={hover} direction="next" />,
-    prevArrow: <Arrow hover={hover} direction="prev" />,
   };
 
   return (
     <div className="w-full">
-      <div
-        className="slider-container"
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-      >
-        <Slider {...settings}>
-          {items.map((el, i) => {
-            return <Slide key={i} {...el} />;
-          })}
-        </Slider>
-      </div>
+      <Carousel settings={settings}>
+        {items.map((el, i) => {
+          return (
+            <Slide
+              key={i}
+              {...el}
+              className="transition ease-in-out duration-300 hover:-translate-y-1"
+            />
+          );
+        })}
+      </Carousel>
     </div>
   );
 };
@@ -725,14 +679,14 @@ const Showcase: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   ];
 
   return (
-    <div className="w-full flex-row space-y-14 mt-12">
+    <div className="w-full flex-row space-y-8 mt-12">
       {data.map((el, index) => (
-        <div key={index} className="flex-row space-y-6">
+        <div key={index} className="flex-row space-y-2">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-extrabold">{el.title}</h2>
             {el.link && (
               <a
-                href="el.link"
+                href={el.link}
                 className="px-5 py-2.5 bg-neutral-800/50 rounded-xl font-bold text-base text-neutral-50 no-underline hover:bg-neutral-600/50"
               >
                 View category
