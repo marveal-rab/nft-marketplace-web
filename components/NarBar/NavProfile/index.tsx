@@ -5,6 +5,7 @@ import { AiOutlineShoppingCart, AiOutlineUser } from "react-icons/ai";
 import { BiWallet, BiChevronRight, BiHelpCircle } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 import { GrLanguage } from "react-icons/gr";
+import { FaSearch } from "react-icons/fa";
 
 /// internal imports
 import { Switch } from "@/ui";
@@ -61,10 +62,10 @@ const nav = [
 
 const WalletLogin = () => {
   return (
-    <div className="bg-gray-200 rounded-lg px-4 py-3 bg-opacity-10 hover:bg-opacity-5">
+    <div className="flex items-center rounded-lg bg-transparent xl:p-3 xl:bg-gray-200/10 xl:hover:bg-gray-200/5">
       <button className="flex space-x-3">
         <BiWallet className="" size={24} />
-        <span className="font-bold">Login</span>
+        <span className="font-bold sm:max-xl:hidden">Login</span>
       </button>
     </div>
   );
@@ -125,7 +126,7 @@ const Avatar: React.FC<AvatarProps> = ({ ...props }) => {
         setIsPopoverOpen(false);
       }}
     >
-      <div className="flex items-center bg-gray-200 rounded-lg p-3 bg-opacity-10 hover:bg-opacity-5">
+      <div className="flex items-center rounded-lg bg-transparent xl:p-3 xl:bg-gray-200/10 xl:hover:bg-gray-200/5">
         <button>
           <BsPersonCircle size={24} />
         </button>
@@ -137,9 +138,24 @@ const Avatar: React.FC<AvatarProps> = ({ ...props }) => {
 
 const Cart = () => {
   return (
-    <div className="flex items-center bg-gray-200 rounded-lg p-3 bg-opacity-10 hover:bg-opacity-5">
+    <div className="flex items-center rounded-lg bg-transparent xl:p-3 xl:bg-gray-200/10 xl:hover:bg-gray-200/5">
       <button>
         <AiOutlineShoppingCart size={24} />
+      </button>
+    </div>
+  );
+};
+
+const Search: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  ...props
+}) => {
+  const { className } = props;
+  return (
+    <div
+      className={`flex items-center rounded-lg bg-transparent xl:p-3 xl:bg-gray-200/10 xl:hover:bg-gray-200/5 ${className}`}
+    >
+      <button>
+        <FaSearch size={24} />
       </button>
     </div>
   );
@@ -148,7 +164,8 @@ const Cart = () => {
 const NavProfile = () => {
   return (
     <>
-      <div className="flex space-x-4 items-center h-full">
+      <div className="flex space-x-6 xl:space-x-4 items-center h-full">
+        <Search className="xl:hidden" />
         <WalletLogin />
         <Avatar className="h-full flex items-center" />
         <Cart />

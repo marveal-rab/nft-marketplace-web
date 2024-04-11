@@ -42,7 +42,7 @@ const NarBar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
             height={40}
           />
           <div className="h-full items-center content-center">
-            <h1 className="text-lg ml-4">Twin Capes</h1>
+            <h1 className="text-lg ml-4 font-extrabold">Twin Capes</h1>
           </div>
         </div>
         <ul className="flex space-x-8 pl-8 items-center h-11">
@@ -58,7 +58,7 @@ const NarBar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
           })}
         </ul>
       </div>
-      <div className="flex-grow w-auto min-w-[200px] max-w-[400px]">
+      <div className="flex-grow w-auto min-w-[200px] max-w-[400px] max-xl:hidden">
         <SearchBox />
       </div>
       <div className="mr-4 shrink-0 h-full flex items-center">

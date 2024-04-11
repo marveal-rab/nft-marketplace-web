@@ -4,7 +4,6 @@ import React from "react";
 import { Settings } from "react-slick";
 
 /// internal imports
-import { Arrays } from "@/utils";
 import { Carousel } from "@/ui";
 
 interface CardItem {
@@ -16,43 +15,33 @@ interface CardItem {
 
 interface SwiperProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-interface SlideProps extends React.HTMLAttributes<HTMLDivElement> {
-  items: CardItem[];
+interface SlideProps extends CardItem, React.HTMLAttributes<HTMLDivElement> {
+  id: string;
+  image: string;
+  title: string;
+  description: string;
 }
 
 const Slide: React.FC<SlideProps> = ({ ...props }) => {
-  const { items, className, onMouseEnter, onMouseLeave } = props;
+  const { id, image, title, description, className } = props;
   return (
-    <div
-      className={`flex gap-6 justify-between mx-2 ${className}`}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
-      {items.map((el, i) => {
-        return (
-          <div className="group relative max-w-[420px] max-h-[420px]" key={i}>
-            <div className="rounded-xl overflow-hidden origin-center ">
-              <img
-                src={el.image}
-                alt={el.title}
-                className="w-full h-full group-hover:scale-110 transition-transform duration-300 ease-in-out"
-              />
-            </div>
-            <div className="p-2 absolute bottom-0">
-              <p className="text-base font-bold mb-2">{el.title}</p>
-              <p className="text-sm">{el.description}</p>
-            </div>
-          </div>
-        );
-      })}
+    <div className={`group relative max-w-[420px] max-h-[420px] ${className}`}>
+      <div className="rounded-xl overflow-hidden origin-center ">
+        <img
+          src={image}
+          alt={title}
+          className="w-full h-full group-hover:scale-110 transition-transform duration-300 ease-in-out"
+        />
+      </div>
+      <div className="p-2 absolute bottom-0">
+        <p className="text-base font-bold mb-2">{title}</p>
+        <p className="text-sm">{description}</p>
+      </div>
     </div>
   );
 };
 
 const Swiper: React.FC<SwiperProps> = ({ ...props }) => {
-  const [cards, setCards] = React.useState<number>(4);
-  const [time, setTime] = React.useState<number>(5000);
-
   const items: CardItem[] = [
     {
       id: "1",
@@ -107,17 +96,47 @@ const Swiper: React.FC<SwiperProps> = ({ ...props }) => {
   const settings: Settings = {
     infinite: true,
     speed: 700,
-    slidesToShow: 1,
-    slidesToScroll: 1,
+    slidesToShow: 6,
+    slidesToScroll: 6,
     autoplay: true,
-    autoplaySpeed: time,
+    autoplaySpeed: 5000,
+    responsive: [
+      {
+        breakpoint: 1536,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+        },
+      },
+      {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
     <div>
       <Carousel settings={settings} className="py-4">
-        {Arrays.chunk(items, cards).map((el, i) => {
-          return <Slide items={el} key={i} />;
+        {items.map((el, i) => {
+          return <Slide {...el} key={i} />;
         })}
       </Carousel>
     </div>

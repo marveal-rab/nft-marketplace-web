@@ -201,10 +201,19 @@ const Footer: React.FC<React.HTMLAttributes<HTMLDivElement>> = () => {
               Join our mailing list to stay in the loop with our newest feature
               releases, NFT drops, and tips and tricks for navigating OpenSea.
             </p>
-            <p>
-              <input type="text" placeholder="Enter your email" />
-              <button>Sign up</button>
-            </p>
+            <form action="#" className="flex space-x-4 w-full">
+              <input
+                type="text"
+                placeholder="Your email address"
+                className="rounded-xl ps-2 text-neutral-200 w-full bg-neutral-900/70 border-neutral-300/30 focus:outline-none border-[1px] focus-within:border-neutral-300/70"
+              />
+              <button
+                type="submit"
+                className="px-4 py-3 bg-sky-500 rounded-xl text-nowrap"
+              >
+                Sign up
+              </button>
+            </form>
           </div>
           <div className="flex-row space-y-4 w-[48%]">
             <p className="text-xl font-bold">Join the community</p>
@@ -233,7 +242,7 @@ const Footer: React.FC<React.HTMLAttributes<HTMLDivElement>> = () => {
           </div>
         </div>
         <div className="flex justify-between text-xs py-6 px-2">
-          <div className="">© 2018 - 2024 Marveal, Org</div>
+          <div className="">© 2024 - 2024 Marveal, Org</div>
           <div className="flex space-x-4">
             <a
               href="#"

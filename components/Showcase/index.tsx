@@ -66,8 +66,6 @@ const Slide: React.FC<SlideProps> = ({ ...props }) => {
 };
 
 const ShowcaseItem: React.FC<ShowcaseItemProps> = ({ items, ...props }) => {
-  const [hover, setHover] = React.useState<boolean>(false);
-
   const settings: Settings = {
     infinite: false,
     speed: 700,
@@ -687,7 +685,7 @@ const Showcase: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
             {el.link && (
               <a
                 href={el.link}
-                className="px-5 py-2.5 bg-neutral-800/50 rounded-xl font-bold text-base text-neutral-50 no-underline hover:bg-neutral-600/50"
+                className="px-5 py-2.5 bg-neutral-800/50 rounded-xl font-bold text-sm text-neutral-50 no-underline hover:bg-neutral-600/50"
               >
                 View category
               </a>

@@ -139,7 +139,7 @@ const Tutorial: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
           <h2 className="text-2xl font-extrabold">Tutorial</h2>
           <a
             href={"#"}
-            className="px-5 py-2.5 bg-neutral-800/50 rounded-xl font-bold text-base text-neutral-50 no-underline hover:bg-neutral-600/50"
+            className="px-5 py-2.5 bg-neutral-800/50 rounded-xl font-bold text-sm text-neutral-50 no-underline hover:bg-neutral-600/50"
           >
             Learn more
           </a>
