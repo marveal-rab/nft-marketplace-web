@@ -186,48 +186,35 @@ const DateSelector: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
 }) => {
   const { className } = props;
   const [selected, setSelected] = React.useState<number>(0);
+
+  const items = [
+    { title: "1h" },
+    { title: "16h" },
+    { title: "24h" },
+    { title: "7d" },
+  ];
+
   return (
     <div className={`${className}`}>
       <ul className="flex relative p-1 bg-neutral-800/50 rounded-xl font-bold text-sm text-neutral-50 overflow-hidden text-center">
         <div
-          className={`absolute top-1 rounded-xl h-9 w-12 bg-neutral-500/50 transition-transform duration-200 ${
-            selected === 0 && "translate-x-0"
-          } ${selected === 1 && "translate-x-[100%]"} ${
-            selected === 2 && "translate-x-[200%]"
-          } ${selected === 3 && "translate-x-[300%]"} `}
+          className={`absolute top-1 rounded-xl h-9 w-12 bg-neutral-500/50 transition-transform duration-200 translate-x-[${
+            selected * 100
+          }%]`}
         ></div>
-        <li
-          className={`px-3 py-2 w-12 z-10 ${
-            selected !== 0 && "text-neutral-500 hover:text-neutral-50"
-          }`}
-          onClick={() => setSelected(0)}
-        >
-          1h
-        </li>
-        <li
-          className={`px-3 py-2 w-12 z-10 ${
-            selected !== 1 && "text-neutral-500 hover:text-neutral-50"
-          }`}
-          onClick={() => setSelected(1)}
-        >
-          16h
-        </li>
-        <li
-          className={`px-3 py-2 w-12 z-10 ${
-            selected !== 2 && "text-neutral-500 hover:text-neutral-50"
-          }`}
-          onClick={() => setSelected(2)}
-        >
-          24h
-        </li>
-        <li
-          className={`px-3 py-2 w-12 z-10 ${
-            selected !== 3 && "text-neutral-500 hover:text-neutral-50"
-          }`}
-          onClick={() => setSelected(3)}
-        >
-          7d
-        </li>
+        {items.map((el, index) => {
+          return (
+            <li
+              key={index}
+              className={`px-3 py-2 w-12 z-10 ${
+                selected !== index && "text-neutral-500 hover:text-neutral-50"
+              }`}
+              onClick={() => setSelected(index)}
+            >
+              {el.title}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

@@ -8,46 +8,17 @@ import { IoIosMore } from "react-icons/io";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function CollectionLayout({
-  params,
-  children,
-}: {
+interface TabProps extends React.HTMLAttributes<HTMLDivElement> {
   params: { collection: string };
-  children: React.ReactNode;
-}) {
-  const searchParams = useSearchParams();
-  const selectedTab = searchParams.has("tab")
-    ? searchParams.get("tab")
-    : "items";
+}
 
+const Banner: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  ...props
+}) => {
   const [showMore, setShowMore] = React.useState(false);
 
-  const tabs = [
-    {
-      name: "items",
-      title: "Items",
-      href: `/collections/${params.collection}`,
-    },
-    {
-      name: "offers",
-      title: "Offers",
-      href: `/collections/${params.collection}/offers`,
-    },
-    {
-      name: "analytics",
-      title: "Analytics",
-      href: `/collections/${params.collection}/analytics`,
-    },
-    {
-      name: "activity",
-      title: "Activity",
-      href: `/collections/${params.collection}/activity`,
-    },
-  ];
-
   return (
-    <div className="max-w-screen-2xl mx-auto px-16">
-      <NarBar />
+    <div className={props.className}>
       <div className="w-full h-72">
         <div className="flex justify-between items-end h-full pb-6">
           <div className="flex flex-col space-y-2">
@@ -90,10 +61,12 @@ export default function CollectionLayout({
       </div>
       <div className="flex justify-between my-2">
         <div className="flex flex-col gap-1 w-3/5">
-          <div className="flex gap-2">
+          <div className="flex gap-2 text-neutral-200">
             <div
               className={`${
-                !showMore && "overflow-hidden text-ellipsis text-nowrap"
+                showMore
+                  ? "text-pretty break-words"
+                  : "overflow-hidden text-ellipsis text-nowrap"
               }`}
             >
               Discover NFToshis, a collection of extraordinary NFTs inspired by
@@ -105,7 +78,7 @@ export default function CollectionLayout({
             </div>
             {!showMore && (
               <div
-                className="hover:text-neutral-600 cursor-pointer text-nowrap"
+                className="text-neutral-50 hover:text-neutral-600 cursor-pointer text-nowrap"
                 onClick={() => {
                   setShowMore(true);
                 }}
@@ -116,7 +89,7 @@ export default function CollectionLayout({
           </div>
           {showMore && (
             <div
-              className="hover:text-neutral-600 cursor-pointer text-nowrap"
+              className="text-neutral-50 hover:text-neutral-600 cursor-pointer text-nowrap"
               onClick={() => {
                 setShowMore(false);
               }}
@@ -124,7 +97,7 @@ export default function CollectionLayout({
               See less
             </div>
           )}
-          <div className="flex items-center space-x-4 text-neutral-400">
+          <div className="flex items-center space-x-4 text-neutral-400 text-nowrap">
             <div className="flex space-x-2">
               <span>Items</span>
               <span>3,000</span>
@@ -145,7 +118,7 @@ export default function CollectionLayout({
             </div>
           </div>
         </div>
-        <div className="flex gap-4">
+        <div className="flex flex-row gap-4 h-6">
           <a href="#" className="hover:text-neutral-500">
             <TbWorldWww size={24} />
           </a>
@@ -157,21 +130,73 @@ export default function CollectionLayout({
           </a>
         </div>
       </div>
-      <div>
-        <div className="flex gap-4 py-8 items-center text-base font-bold text-neutral-200 border-b-[1px] border-neutral-500/30">
-          {tabs.map((tab, index) => (
-            <div
-              key={index}
-              className={`px-4 py-3 bg-transparent rounded-xl ${
-                selectedTab === tab.name
-                  ? "bg-neutral-700/30"
-                  : "text-neutral-500 hover:text-neutral-200 cursor-pointer"
-              }`}
-            >
-              <Link href={`${tab.href}?tab=${tab.name}`}>{tab.title}</Link>
-            </div>
-          ))}
-        </div>
+    </div>
+  );
+};
+
+const Tabs: React.FC<TabProps> = ({ ...props }) => {
+  const { params } = props;
+  const searchParams = useSearchParams();
+  const selectedTab = searchParams.has("tab")
+    ? searchParams.get("tab")
+    : "items";
+
+  const tabs = [
+    {
+      name: "items",
+      title: "Items",
+      href: `/collections/${params.collection}`,
+    },
+    {
+      name: "offers",
+      title: "Offers",
+      href: `/collections/${params.collection}/offers`,
+    },
+    {
+      name: "analytics",
+      title: "Analytics",
+      href: `/collections/${params.collection}/analytics`,
+    },
+    {
+      name: "activity",
+      title: "Activity",
+      href: `/collections/${params.collection}/activity`,
+    },
+  ];
+
+  return (
+    <div className={props.className}>
+      <div className="flex gap-4 h-20 mt-4 items-center text-base font-bold text-neutral-200 border-b-[1px] border-neutral-500/30">
+        {tabs.map((tab, index) => (
+          <div
+            key={index}
+            className={`px-4 py-3 rounded-xl ${
+              selectedTab === tab.name
+                ? "bg-neutral-700/30"
+                : "text-neutral-500 hover:text-neutral-200 cursor-pointer"
+            }`}
+          >
+            <Link href={`${tab.href}?tab=${tab.name}`}>{tab.title}</Link>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default function CollectionLayout({
+  params,
+  children,
+}: {
+  params: { collection: string };
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="max-w-screen-2xl mx-auto px-16">
+      <NarBar className="sticky top-0 bg-black" />
+      <Banner />
+      <div className="mx-2 h-screen">
+        <Tabs params={params} className="sticky top-20" />
         {children}
       </div>
     </div>
