@@ -41,7 +41,9 @@ export const Accordion: React.FC<AccordionProps> = ({
           </div>
         )}
       </div>
-      {isOpen && children}
+      {isOpen && children && (
+        <div className="border-b-[1px] border-b-neutral-500/50">{children}</div>
+      )}
     </div>
   );
 };

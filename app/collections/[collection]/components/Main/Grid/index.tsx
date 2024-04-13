@@ -60,7 +60,7 @@ const Grid: React.FC<GridProps> = ({ ...props }) => {
   const { items } = props;
   return (
     <div className={props.className}>
-      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full h-full">
+      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full h-full -z-max">
         {items.map((el, index) => {
           return <GridItem key={index} {...el} />;
         })}

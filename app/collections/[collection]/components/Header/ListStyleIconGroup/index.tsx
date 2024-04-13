@@ -9,7 +9,7 @@ const ListStyleIconGroup: React.FC<React.HTMLAttributes<HTMLUListElement>> = ({
   className = "",
   ...props
 }) => {
-  const [selected, setSelected] = React.useState(1);
+  const [selected, setSelected] = React.useState<number>(1);
   const icons = [
     {
       icon: <FaListUl size={20} />,
@@ -21,14 +21,23 @@ const ListStyleIconGroup: React.FC<React.HTMLAttributes<HTMLUListElement>> = ({
       icon: <MdOutlineGridOn size={20} />,
     },
   ];
+
+  const translate = () => {
+    return selected === 0
+      ? "translate-x-0"
+      : selected === 1
+      ? "translate-x-[100%]"
+      : selected === 2
+      ? "translate-x-[200%]"
+      : "";
+  };
+
   return (
     <ul
       className={`flex relative border-gray-700 items-center text-center border-[1px] rounded-xl text-neutral-600 h-12 ${className}`}
     >
       <div
-        className={`absolute bg-neutral-700/30 w-12 h-12 rounded-xl transition-transform translate-x-[${
-          selected * 100
-        }%]`}
+        className={`absolute bg-neutral-700/30 w-12 h-12 rounded-xl transition-transform ${translate()}`}
       ></div>
       {icons.map((el, index) => {
         return (

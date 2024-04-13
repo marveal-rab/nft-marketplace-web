@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { NarBar } from "@/components";
+import { NarBar } from "@/app/components";
 import { TbWorldWww } from "react-icons/tb";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoIosMore } from "react-icons/io";
@@ -193,7 +193,7 @@ export default function CollectionLayout({
 }) {
   return (
     <div className="max-w-screen-2xl mx-auto px-16">
-      <NarBar className="sticky top-0 bg-black" />
+      <NarBar className="sticky top-0" />
       <Banner />
       <div className="mx-2 h-screen">
         <Tabs params={params} className="sticky top-20" />

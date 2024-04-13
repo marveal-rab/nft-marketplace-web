@@ -12,4 +12,25 @@ function chunk<T>(array: T[], size: number): T[][] {
   return chunks;
 }
 
+/**
+ * 判断数组中是否包含某个值
+ * @param array 要判断的数组
+ * @param value 要查找的值
+ * @returns 是否包含
+ * @example
+ * has([1, 2, 3], 2); // true
+ * has([1, 2, 3], 4); // false
+ * has(["a", "b", "c"], "b"); // true
+ * has(["a", "b", "c"], "d"); // false
+ * has([true, false], true); // true
+ * has([true, false], null); // false
+ * has([null, undefined], null); // true
+ * has([null, undefined], undefined); // true
+ * has([null, undefined], 0); // false
+ * has([0, 1, 2], 0); // true
+ */
+function has<T>(array: T[], value: T): boolean {
+  return array.includes(value);
+}
+
 export { chunk };

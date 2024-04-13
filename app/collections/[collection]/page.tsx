@@ -5,11 +5,11 @@ import React from "react";
 import { Header, Main, SideBar } from "./components";
 
 export default function Page({ params }: { params: { collection: string } }) {
-  const [showSideBar, setShowSideBar] = React.useState(true);
+  const [showSideBar, setShowSideBar] = React.useState<boolean>(true);
 
   return (
     <div className="w-full h-full">
-      <div className="w-full h-20 items-center sticky top-40">
+      <div className="w-full h-20 items-center sticky top-40 z-10">
         <Header className="w-full h-full" setShowSideBar={setShowSideBar} />
       </div>
       <div
