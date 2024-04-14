@@ -7,6 +7,7 @@ import CreatorEarnings from "./CreatorEarnings";
 import Price from "./Price";
 import RarityRank from "./RarityRank";
 import Currency from "./Currency";
+import Traits from "./Traits";
 
 const SideBar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   ...props
@@ -31,14 +32,7 @@ const SideBar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
         </li>
       </ul>
       <div className="border-b-[1px] border-gray-500/30"></div>
-      <Accordion title="Traits"></Accordion>
-      <ul>
-        <li>
-          <Accordion title="Background" after="12">
-            hello world
-          </Accordion>
-        </li>
-      </ul>
+      <Traits />
     </div>
   );
 };

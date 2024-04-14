@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 
-interface Option {
+export interface CheckBoxOption {
   label: string;
   value: string;
   after?: React.ReactNode;
 }
 
-interface CheckBoxProps extends Option {
+interface CheckBoxProps extends CheckBoxOption {
   isChecked: boolean;
   onChange: (value: string) => void;
   className?: string;
@@ -48,13 +48,13 @@ const CheckBox: React.FC<CheckBoxProps> = ({ ...props }) => {
         </div>
         <span>{label}</span>
       </div>
-      <div>{after && after}</div>
+      {after && <div>{after}</div>}
     </div>
   );
 };
 
 interface CheckBoxGroupProps {
-  options: Option[];
+  options: CheckBoxOption[];
   selectedValues: string[];
   onChange: (values: string[]) => void;
   className?: string;
@@ -95,6 +95,7 @@ export const CheckBoxGroup: React.FC<CheckBoxGroupProps> = ({ ...props }) => {
           key={option.value}
           label={option.label}
           value={option.value}
+          after={option.after}
           isChecked={selectedValues.includes(option.value)}
           onChange={handleCheckboxChange}
           className="px-3 py-2"
