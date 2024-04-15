@@ -12,11 +12,8 @@ export interface SelectorProps extends React.HTMLAttributes<HTMLDivElement> {
   initialSelected?: number;
 }
 
-export const Selector: React.FC<SelectorProps> = ({
-  initialSelected = 0,
-  ...props
-}) => {
-  const { items, className } = props;
+export const Selector: React.FC<SelectorProps> = ({ ...props }) => {
+  const { items, initialSelected = 0, className } = props;
   const selectRef = React.useRef<HTMLDivElement>(null);
   const [selected, setSelected] = React.useState<number>(initialSelected);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -39,7 +36,7 @@ export const Selector: React.FC<SelectorProps> = ({
 
   return (
     <div className={className}>
-      <div className="relative w-full font-semibold" ref={selectRef}>
+      <div className="relative w-full font-semibold z-10" ref={selectRef}>
         <div
           className="flex items-center justify-between rounded-xl w-full border-gray-500 border-[1px] px-4 py-3"
           onClick={(event) => {
@@ -52,10 +49,10 @@ export const Selector: React.FC<SelectorProps> = ({
           </span>
         </div>
         {isOpen && (
-          <ul className="absolute rounded-xl w-full top-14 p-1 bg-neutral-900 text-neutral-400">
+          <div className="absolute rounded-xl w-full top-14 p-1 bg-neutral-900 text-neutral-400 z-10">
             {items.map((el, index) => {
               return (
-                <li
+                <div
                   key={index}
                   className={`px-6 py-4 w-full rounded-xl cursor-pointer ${
                     selected !== index
@@ -69,10 +66,10 @@ export const Selector: React.FC<SelectorProps> = ({
                   }}
                 >
                   {el.title}
-                </li>
+                </div>
               );
             })}
-          </ul>
+          </div>
         )}
       </div>
     </div>

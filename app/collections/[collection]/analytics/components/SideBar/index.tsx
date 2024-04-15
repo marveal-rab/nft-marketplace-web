@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Accordion,
   AccordionProps,
@@ -6,8 +5,9 @@ import {
   CheckBoxOption,
   SearchInput,
 } from "@/ui";
+import React from "react";
 
-interface TraitsProps {}
+interface SideBarProps extends Props {}
 
 interface TraitProps extends Props, AccordionProps {
   options: CheckBoxOption[];
@@ -46,7 +46,8 @@ const CheckBoxAfter: React.FC<{ content: string }> = ({ ...props }) => {
   );
 };
 
-const Traits: React.FC<TraitsProps> = ({ ...props }) => {
+const SideBar: React.FC<SideBarProps> = ({ ...props }) => {
+  const { className } = props;
   const items = [
     {
       title: "Background",
@@ -91,10 +92,8 @@ const Traits: React.FC<TraitsProps> = ({ ...props }) => {
       ],
     },
   ];
-
   return (
-    <div>
-      <Accordion title="Traits"></Accordion>
+    <div className={`w-full h-full overflow-scroll ${className}`}>
       <ul>
         <li>
           {items.map((el, index) => {
@@ -106,4 +105,4 @@ const Traits: React.FC<TraitsProps> = ({ ...props }) => {
   );
 };
 
-export default Traits;
+export default SideBar;

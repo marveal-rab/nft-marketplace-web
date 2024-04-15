@@ -11,6 +11,8 @@
   "dependencies": {
     "@headlessui/react": "^1.7.18",
     "@types/react-slick": "^0.23.13",
+    "highcharts": "^11.4.1",
+    "highcharts-react-official": "^3.2.1",
     "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18",

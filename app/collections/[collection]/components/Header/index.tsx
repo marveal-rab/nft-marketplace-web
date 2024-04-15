@@ -1,9 +1,9 @@
 import React from "react";
 import FilterIcon from "./FilterIcon";
 import TotalItemsShow from "./TotalItemsShow";
-import SearchBox from "./SearchBox";
 import ListStyleIconGroup from "./ListStyleIconGroup";
 import SortedSelector from "./SortedSelector";
+import { SearchInput } from "@/ui";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   setShowSideBar: (func: (prev: boolean) => boolean) => void;
@@ -20,7 +20,10 @@ const Header: React.FC<Props> = ({ ...props }: Props) => {
           }}
         />
         <TotalItemsShow />
-        <SearchBox className="grow w-full min-w-64 max-w-[512px]" />
+        <SearchInput
+          className="grow w-full min-w-64 max-w-[512px]"
+          placeholder="Search by name or traits"
+        />
         <div className="flex gap-2">
           <SortedSelector />
           <ListStyleIconGroup />
