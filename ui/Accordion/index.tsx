@@ -4,15 +4,19 @@ import { after } from "node:test";
 import React from "react";
 import { FaAngleDown } from "react-icons/fa";
 
-export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AccordionProps extends Props {
   title: string;
   after?: string;
+  icon?: React.ReactNode;
+  children?: React.ReactNode;
 }
+
+export interface AccordionGroupProps extends Props {}
 
 export const Accordion: React.FC<AccordionProps> = ({
   ...props
 }: AccordionProps) => {
-  const { title, after, className, children } = props;
+  const { title, after, className, children, icon } = props;
   const [isOpen, setIsOpen] = React.useState(false);
   return (
     <div className={className}>
@@ -24,7 +28,10 @@ export const Accordion: React.FC<AccordionProps> = ({
           setIsOpen((prevIsOpen) => !prevIsOpen);
         }}
       >
-        <span className="font-bold text-base">{title}</span>
+        <div className="flex items-center gap-4">
+          {icon && icon}
+          <span className="font-bold text-base">{title}</span>
+        </div>
         {children && (
           <div className="flex items-center gap-1">
             {after && (
