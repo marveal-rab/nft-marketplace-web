@@ -3,7 +3,8 @@ import { ArrowProps, Arrow, Carousel } from "./Carousel";
 import { AccordionProps, Accordion } from "./Accordion";
 import { SelectorItem, SelectorProps, Selector } from "./Selector";
 import { InputProps, Input, SearchInput } from "./Input";
-import { CheckBoxOption, CheckBoxGroup } from "./CheckBox";
+import { CheckBoxOption, CheckBox, CheckBoxGroup } from "./CheckBox";
+import { CardProps, Card } from "./Card";
 
 export type {
   ArrowProps,
@@ -12,6 +13,7 @@ export type {
   SelectorProps,
   InputProps,
   CheckBoxOption,
+  CardProps,
 };
 export {
   Switch,
@@ -21,5 +23,7 @@ export {
   Selector,
   Input,
   SearchInput,
+  CheckBox,
   CheckBoxGroup,
+  Card,
 };

@@ -12,7 +12,7 @@ interface CheckBoxProps extends CheckBoxOption {
   className?: string;
 }
 
-const CheckBox: React.FC<CheckBoxProps> = ({ ...props }) => {
+export const CheckBox: React.FC<CheckBoxProps> = ({ ...props }) => {
   const { className, label, value, isChecked, onChange, after } = props;
 
   const handleClick = () => {
