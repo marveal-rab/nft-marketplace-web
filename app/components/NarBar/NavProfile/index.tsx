@@ -8,7 +8,7 @@ import { GrLanguage } from "react-icons/gr";
 import { FaSearch } from "react-icons/fa";
 
 /// internal imports
-import { Switch } from "@/ui";
+import { Switch } from "@/app/ui";
 
 const nav = [
   [

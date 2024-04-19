@@ -1,4 +1,4 @@
-import { Accordion } from "@/ui";
+import { Accordion } from "@/app/ui";
 import React from "react";
 import { IoMdTrendingUp } from "react-icons/io";
 import { VolumeAndPriceChart } from "./VolumeAndPrice";

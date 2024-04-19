@@ -1,4 +1,4 @@
-import { Accordion } from "@/ui";
+import { Accordion } from "@/app/ui";
 import { Datetimes } from "@/utils";
 import React from "react";
 import { GoTag } from "react-icons/go";

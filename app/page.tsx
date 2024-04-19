@@ -12,16 +12,12 @@ export default function Home() {
   return (
     <div>
       <div className="max-w-screen-2xl mx-auto px-16">
-        <div>
-          <NarBar />
-          <Category />
-          <Swiper />
-        </div>
-        <div className="mb-12">
-          <Trend />
-          <Showcase />
-          <Tutorial />
-        </div>
+        <NarBar className="sticky top-0 z-10 bg-black" />
+        <Category />
+        <Swiper />
+        <Trend />
+        <Showcase />
+        <Tutorial />
       </div>
       <Footer />
     </div>

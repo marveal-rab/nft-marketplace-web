@@ -2,7 +2,7 @@ import React from "react";
 import { GiChaingun } from "react-icons/gi";
 import { FaExternalLinkAlt, FaRegHeart } from "react-icons/fa";
 import { TbFileDescription, TbListDetails, TbWorldWww } from "react-icons/tb";
-import { Accordion } from "@/ui";
+import { Accordion } from "@/app/ui";
 import { CiShoppingTag } from "react-icons/ci";
 import { HiOutlineViewGridAdd } from "react-icons/hi";
 import { FaXTwitter } from "react-icons/fa6";

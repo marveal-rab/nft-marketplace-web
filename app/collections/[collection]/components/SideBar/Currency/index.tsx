@@ -1,5 +1,5 @@
 import React from "react";
-import { Accordion, CheckBoxGroup, SearchInput } from "@/ui";
+import { Accordion, CheckBoxGroup, SearchInput } from "@/app/ui";
 
 interface CurrencyProps extends React.HTMLAttributes<HTMLDivElement> {}
 

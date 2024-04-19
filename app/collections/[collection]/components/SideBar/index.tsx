@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Accordion } from "@/ui";
+import { Accordion } from "@/app/ui";
 import Status from "./Status";
 import CreatorEarnings from "./CreatorEarnings";
 import Price from "./Price";

@@ -1,4 +1,4 @@
-import { Accordion } from "@/ui";
+import { Accordion } from "@/app/ui";
 import React from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BsGrid3X2Gap } from "react-icons/bs";

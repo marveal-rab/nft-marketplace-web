@@ -1,4 +1,4 @@
-import { Accordion, Selector } from "@/ui";
+import { Accordion, Selector } from "@/app/ui";
 import { Datetimes } from "@/utils";
 import { title } from "process";
 import React from "react";

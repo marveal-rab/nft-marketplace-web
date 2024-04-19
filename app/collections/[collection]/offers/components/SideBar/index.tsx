@@ -1,4 +1,4 @@
-import { SearchInput } from "@/ui";
+import { SearchInput } from "@/app/ui";
 import React from "react";
 import TraitSelector from "./TraitSelector";
 

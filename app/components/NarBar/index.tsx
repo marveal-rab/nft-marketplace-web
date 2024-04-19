@@ -5,7 +5,7 @@ import Image from "next/image";
 
 // internal imports
 import NavItem from "./NavItem";
-import SearchBox from "./SearchBox";
+import { SearchInput } from "@/app/ui";
 import NavProfile from "./NavProfile";
 
 const nav = [
@@ -60,7 +60,7 @@ const NarBar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
           </ul>
         </div>
         <div className="w-auto min-w-[200px] max-w-[400px] max-xl:hidden">
-          <SearchBox />
+          <SearchInput placeholder="Search" />
         </div>
         <div className="mr-4 shrink-0 h-full flex items-center">
           <NavProfile />
