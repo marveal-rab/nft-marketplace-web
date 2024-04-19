@@ -4,7 +4,7 @@ import "./globals.css";
 import { NFTMarketplaceProvider } from "./marketplace-provider";
 import { WalletConnectProvider } from "./contexts/wallet-connect-provider";
 import { cookieToInitialState } from "wagmi";
-import { config } from "@/config/wagmi";
+import { config } from "@/app/config/wagmi";
 import { headers } from "next/headers";
 
 const inter = Inter({ subsets: ["latin"] });
