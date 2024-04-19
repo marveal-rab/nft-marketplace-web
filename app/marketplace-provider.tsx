@@ -2,7 +2,10 @@
 
 import React from "react";
 
-export const NFTMarketplaceContext = React.createContext({});
+export const NFTMarketplaceContext = React.createContext({
+  isAuthenticated: false,
+  setIsAuthenticated: (value: boolean) => {},
+});
 
 export const NFTMarketplaceProvider = ({
   children,
@@ -12,7 +15,12 @@ export const NFTMarketplaceProvider = ({
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
   return (
-    <NFTMarketplaceContext.Provider value={{}}>
+    <NFTMarketplaceContext.Provider
+      value={{
+        isAuthenticated,
+        setIsAuthenticated,
+      }}
+    >
       {children}
     </NFTMarketplaceContext.Provider>
   );

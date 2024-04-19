@@ -9,6 +9,7 @@ import { FaSearch } from "react-icons/fa";
 
 /// internal imports
 import { Switch } from "@/app/ui";
+import { useWeb3Modal } from "@web3modal/wagmi/react";
 
 const nav = [
   [
@@ -61,8 +62,18 @@ const nav = [
 ];
 
 const WalletLogin = () => {
+  const { open } = useWeb3Modal();
+
+  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    event.stopPropagation();
+    open();
+  };
+
   return (
-    <div className="flex items-center rounded-lg bg-transparent xl:p-3 xl:bg-gray-200/10 xl:hover:bg-gray-200/5">
+    <div
+      className="flex items-center rounded-lg bg-transparent xl:p-3 xl:bg-gray-200/10 xl:hover:bg-gray-200/5"
+      onClick={handleClick}
+    >
       <button className="flex space-x-3">
         <BiWallet className="" size={24} />
         <span className="font-bold sm:max-xl:hidden">Login</span>

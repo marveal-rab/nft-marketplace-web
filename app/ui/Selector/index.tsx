@@ -10,10 +10,22 @@ export interface SelectorItem {
 export interface SelectorProps extends React.HTMLAttributes<HTMLDivElement> {
   items: SelectorItem[];
   initialSelected?: number;
+  border?: boolean;
+  bg?: string;
+  px?: number;
+  py?: number;
 }
 
 export const Selector: React.FC<SelectorProps> = ({ ...props }) => {
-  const { items, initialSelected = 0, className } = props;
+  const {
+    items,
+    initialSelected = 0,
+    border = true,
+    bg = "bg-transparent",
+    px = 4,
+    py = 3,
+    className,
+  } = props;
   const selectRef = React.useRef<HTMLDivElement>(null);
   const [selected, setSelected] = React.useState<number>(initialSelected);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -38,7 +50,9 @@ export const Selector: React.FC<SelectorProps> = ({ ...props }) => {
     <div className={className}>
       <div className="relative w-full font-semibold z-10" ref={selectRef}>
         <div
-          className="flex items-center justify-between rounded-xl w-full border-gray-500 border-[1px] px-4 py-3"
+          className={`flex items-center justify-between rounded-xl w-full ${
+            border && "border-gray-500 border-[1px]"
+          } ${bg} px-${px} py-${py}`}
           onClick={(event) => {
             setIsOpen((prevIsOpen) => !prevIsOpen);
           }}
