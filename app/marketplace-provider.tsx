@@ -1,10 +1,12 @@
 "use client";
 
+import { useWeb3Modal } from "@web3modal/wagmi/react";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { useAccount } from "wagmi";
 
 export const NFTMarketplaceContext = React.createContext({
-  isAuthenticated: false,
-  setIsAuthenticated: (value: boolean) => {},
+  linkTo: (href: string, e?: React.MouseEvent<HTMLElement, MouseEvent>) => {},
 });
 
 export const NFTMarketplaceProvider = ({
@@ -12,13 +14,26 @@ export const NFTMarketplaceProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const { open } = useWeb3Modal();
+  const { isConnected } = useAccount();
+  const router = useRouter();
+
+  const linkTo = (
+    href: string,
+    e?: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => {
+    e?.stopPropagation();
+    if (isConnected) {
+      router.push(href);
+    } else {
+      open();
+    }
+  };
 
   return (
     <NFTMarketplaceContext.Provider
       value={{
-        isAuthenticated,
-        setIsAuthenticated,
+        linkTo,
       }}
     >
       {children}

@@ -10,6 +10,8 @@ import { FaSearch } from "react-icons/fa";
 /// internal imports
 import { Switch } from "@/app/ui";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
+import { useAccount } from "wagmi";
+import { useRouter } from "next/navigation";
 
 const nav = [
   [
@@ -61,7 +63,10 @@ const nav = [
   ],
 ];
 
-const WalletLogin = () => {
+interface WalletLoginProps extends Props {}
+
+const WalletLogin: React.FC<WalletLoginProps> = ({ ...props }) => {
+  const { className } = props;
   const { open } = useWeb3Modal();
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -71,7 +76,7 @@ const WalletLogin = () => {
 
   return (
     <div
-      className="flex items-center rounded-lg bg-transparent xl:p-3 xl:bg-gray-200/10 xl:hover:bg-gray-200/5"
+      className={`flex items-center rounded-lg bg-transparent xl:p-3 xl:bg-gray-200/10 xl:hover:bg-gray-200/5 ${className}`}
       onClick={handleClick}
     >
       <button className="flex space-x-3">
@@ -88,12 +93,12 @@ const AvatarPopover: React.FC<AvatarPopoverProps> = ({ ...props }) => {
   const { className } = props;
   return (
     <div
-      className={`absolute top-[75px] right-0 text-left items-center p-4 bg-neutral-900 border-gray-800 space-y-2 rounded-lg divide-y divide-gray-100/10 z-max ${className}`}
+      className={`absolute top-[75px] right-0 text-left items-center px-4 py-1 bg-neutral-900 rounded-lg divide-y divide-gray-500/30 z-max ${className}`}
     >
       {nav &&
         nav.map((el, i) => {
           return (
-            <div key={i}>
+            <div key={i} className="py-2">
               {el.map((item, idx) => {
                 return (
                   <div
@@ -101,7 +106,7 @@ const AvatarPopover: React.FC<AvatarPopoverProps> = ({ ...props }) => {
                     key={idx}
                   >
                     <div className="flex text-base font-bold px-3 py-4 justify-between">
-                      <div className="flex items-center space-x-5">
+                      <div className="flex items-center gap-5">
                         {item.icon}
                         <a href={item.href} className="">
                           {item.title}
@@ -127,6 +132,19 @@ const Avatar: React.FC<AvatarProps> = ({ ...props }) => {
   const { className } = props;
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
 
+  const { isConnected } = useAccount();
+  const { open } = useWeb3Modal();
+  const router = useRouter();
+
+  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    event.stopPropagation();
+    if (isConnected) {
+      router.push("/account");
+    } else {
+      open();
+    }
+  };
+
   return (
     <div
       className={`relative ${className}`}
@@ -136,23 +154,25 @@ const Avatar: React.FC<AvatarProps> = ({ ...props }) => {
       onMouseLeave={() => {
         setIsPopoverOpen(false);
       }}
+      onClick={handleClick}
     >
-      <div className="flex items-center rounded-lg bg-transparent xl:p-3 xl:bg-gray-200/10 xl:hover:bg-gray-200/5">
-        <button>
-          <BsPersonCircle size={24} />
-        </button>
+      <div className="flex items-center rounded-lg bg-transparent xl:p-3 xl:bg-gray-200/10 xl:hover:bg-gray-200/5 cursor-pointer">
+        <BsPersonCircle size={24} />
       </div>
       {isPopoverOpen && <AvatarPopover className="w-[260px]" />}
     </div>
   );
 };
 
-const Cart = () => {
+interface CartProps extends Props {}
+
+const Cart: React.FC<CartProps> = ({ ...props }) => {
+  const { className } = props;
   return (
-    <div className="flex items-center rounded-lg bg-transparent xl:p-3 xl:bg-gray-200/10 xl:hover:bg-gray-200/5">
-      <button>
-        <AiOutlineShoppingCart size={24} />
-      </button>
+    <div
+      className={`flex items-center rounded-lg bg-transparent xl:p-3 xl:bg-gray-200/10 xl:hover:bg-gray-200/5 ${className}`}
+    >
+      <AiOutlineShoppingCart size={24} />
     </div>
   );
 };
@@ -165,9 +185,7 @@ const Search: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
     <div
       className={`flex items-center rounded-lg bg-transparent xl:p-3 xl:bg-gray-200/10 xl:hover:bg-gray-200/5 ${className}`}
     >
-      <button>
-        <FaSearch size={24} />
-      </button>
+      <FaSearch size={24} />
     </div>
   );
 };
@@ -175,11 +193,11 @@ const Search: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
 const NavProfile = () => {
   return (
     <>
-      <div className="flex space-x-6 xl:space-x-4 items-center h-full">
-        <Search className="xl:hidden" />
-        <WalletLogin />
-        <Avatar className="h-full flex items-center" />
-        <Cart />
+      <div className="flex items-center h-full">
+        <Search className="px-3 xl:px-2 xl:hidden" />
+        <WalletLogin className="h-full px-3 xl:px-2" />
+        <Avatar className="h-full flex items-center px-3 xl:px-2" />
+        <Cart className="h-full px-3 xl:px-2" />
       </div>
     </>
   );
