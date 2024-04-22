@@ -1,6 +1,5 @@
 "use client";
 
-import { Transition } from "@headlessui/react";
 import React from "react";
 import { AiOutlinePicture } from "react-icons/ai";
 import { MdOutlineFileUpload } from "react-icons/md";

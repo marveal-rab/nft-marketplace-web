@@ -1,53 +1,8 @@
-"use client";
-
 import React from "react";
+import { SearchInputProps } from "../types";
 import { BsSearch } from "react-icons/bs";
 
-export interface InputProps extends React.HTMLAttributes<HTMLElement> {
-  placeholder?: string;
-  center?: boolean;
-  px?: number;
-  py?: number;
-}
-
-export const Input: React.FC<InputProps> = ({
-  placeholder = "",
-  center = false,
-  defaultValue = "",
-  onChange = (event) => {},
-  onFocus = (event) => {},
-  onBlur = (event) => {},
-  ...props
-}) => {
-  const { className } = props;
-  const [text, setText] = React.useState(defaultValue);
-  const [placeholderText, setPlaceholderText] = React.useState(placeholder);
-
-  return (
-    <input
-      type="text"
-      className={`outline-none border-gray-500 border-[1px] bg-transparent rounded-xl ${
-        center && "text-center"
-      } ${className}`}
-      value={text}
-      onChange={(e) => {
-        setText(e.target.value);
-        onChange(e);
-      }}
-      placeholder={placeholderText}
-      onFocus={(event) => {
-        setPlaceholderText("");
-        onFocus(event);
-      }}
-      onBlur={(event) => {
-        setPlaceholderText(placeholder);
-        onBlur(event);
-      }}
-    />
-  );
-};
-
-export const SearchInput: React.FC<InputProps> = ({
+export const SearchInput: React.FC<SearchInputProps> = ({
   placeholder = "",
   defaultValue = "",
   px = 4,

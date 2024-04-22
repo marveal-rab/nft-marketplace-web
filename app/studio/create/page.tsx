@@ -1,9 +1,14 @@
+"use client";
+
 import React from "react";
 import { LuLayoutGrid } from "react-icons/lu";
 import { FaArrowRight } from "react-icons/fa";
 import { AiOutlinePicture } from "react-icons/ai";
+import { NFTMarketplaceContext } from "@/app/marketplace-provider";
 
 export default function Page() {
+  const { linkTo } = React.useContext(NFTMarketplaceContext);
+
   return (
     <div className="w-full h-full">
       <div className="flex flex-col">
@@ -37,7 +42,12 @@ export default function Page() {
         </div>
         <div className="flex px-4 py-8 text-neutral-100 justify-center">
           <div className="flex flex-col gap-6">
-            <div className="w-[600px] p-6 rounded-xl bg-neutral-900 transition ease-out duration-300 hover:-translate-y-1 cursor-pointer hover:bg-neutral-800">
+            <div
+              className="w-[600px] p-6 rounded-xl bg-neutral-900 transition ease-out duration-300 hover:-translate-y-1 cursor-pointer hover:bg-neutral-800"
+              onClick={(e) => {
+                linkTo("/studio/collection/deploy", e);
+              }}
+            >
               <div className="flex justify-between items-center">
                 <div className="flex flex-col gap-2">
                   <p className="flex gap-4 items-center">
@@ -49,7 +59,12 @@ export default function Page() {
                 <FaArrowRight />
               </div>
             </div>
-            <div className="w-[600px] p-6 rounded-xl bg-neutral-900 transition ease-out duration-500 hover:-translate-y-1 cursor-pointer hover:bg-neutral-800">
+            <div
+              className="w-[600px] p-6 rounded-xl bg-neutral-900 transition ease-out duration-500 hover:-translate-y-1 cursor-pointer hover:bg-neutral-800"
+              onClick={(e) => {
+                linkTo("/studio/mint", e);
+              }}
+            >
               <div className="flex justify-between items-center">
                 <div className="flex flex-col gap-2">
                   <p className="flex gap-4 items-center">

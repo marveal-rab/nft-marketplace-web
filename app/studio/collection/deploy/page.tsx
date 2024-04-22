@@ -1,3 +1,5 @@
+"use client";
+
 import { Input } from "@/app/ui";
 import React from "react";
 import { MdMoreHoriz } from "react-icons/md";
@@ -5,15 +7,26 @@ import Upload from "./components/Upload";
 import { FaArrowLeft } from "react-icons/fa";
 import Wallet from "@/app/components/Nav/WalletIcon";
 import Avatar from "@/app/components/Nav/AvatarIcon";
+import { NFTMarketplaceContext } from "@/app/marketplace-provider";
 
 export default function Page() {
+  const { linkTo } = React.useContext(NFTMarketplaceContext);
+
   return (
     <div className="w-full h-full relative">
       <div className="w-full h-20 flex items-center justify-end border-b-[1px] border-b-gray-500/30 fixed top-0 left-0 bg-black mx-auto px-16">
         <div className="flex w-full justify-between items-center">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-full bg-neutral-900 flex items-center justify-center">
-              <FaArrowLeft size={20} className="text-neutral-500" />
+            <div
+              className="group w-10 h-10 rounded-full bg-neutral-900 flex items-center justify-center cursor-pointer hover:bg-neutral-800"
+              onClick={(e) => {
+                linkTo("/studio/create", e);
+              }}
+            >
+              <FaArrowLeft
+                size={20}
+                className="text-neutral-500 group-hover:text-neutral-100"
+              />
             </div>
             <span className="font-bold text-xl">Create an NFT</span>
           </div>
