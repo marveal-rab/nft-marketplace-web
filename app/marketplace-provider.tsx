@@ -7,6 +7,7 @@ import { useAccount } from "wagmi";
 
 export const NFTMarketplaceContext = React.createContext({
   linkTo: (href: string, e?: React.MouseEvent<HTMLElement, MouseEvent>) => {},
+  openWallet: () => {},
 });
 
 export const NFTMarketplaceProvider = ({
@@ -34,6 +35,7 @@ export const NFTMarketplaceProvider = ({
     <NFTMarketplaceContext.Provider
       value={{
         linkTo,
+        openWallet: open,
       }}
     >
       {children}

@@ -1,3 +1,1 @@
-interface Props {
-  className?: string;
-}
+interface Props extends React.HTMLAttributes<HTMLElement> {}
