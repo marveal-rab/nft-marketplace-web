@@ -39,7 +39,7 @@ export default function Page() {
 
   return (
     <div className="w-full h-full">
-      <div className="w-full h-20 flex items-center justify-end  fixed top-0 left-0 bg-black mx-auto px-16 border-b-[1px] border-b-gray-500/30">
+      <div className="w-full h-20 flex items-center justify-end  fixed top-0 left-0 bg-black mx-auto px-16 border-b-[1px] border-b-gray-500/30 z-50">
         <div className="flex w-full justify-between items-center">
           <div
             className="group w-10 h-10 rounded-full bg-neutral-900 flex items-center justify-center cursor-pointer hover:bg-neutral-800"
@@ -58,7 +58,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <div className="pt-32 px-8">
+      <div className="py-32 px-8">
         <div className="flex flex-col gap-2">
           <h3 className="text-3xl font-bold leading-10">Create an NFT</h3>
           <p className="w-1/2">

@@ -1,7 +1,6 @@
 import React from "react";
 
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { BiWallet } from "react-icons/bi";
 import { FaSearch } from "react-icons/fa";
 import Avatar from "@/app/components/Nav/AvatarIcon";
 import Wallet from "@/app/components/Nav/WalletIcon";
@@ -39,7 +38,7 @@ const NavProfile = () => {
         <Search className="px-3 xl:px-2 xl:hidden" />
         <Wallet />
         <Avatar />
-        <Cart className="h-full px-3 xl:px-2" />
+        <Cart className="px-3 xl:p2-2" />
       </div>
     </>
   );

@@ -3,11 +3,14 @@
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { useAccount } from "wagmi";
+import { UseBalanceReturnType, useAccount, useBalance } from "wagmi";
+import { GetBalanceData } from "wagmi/query";
 
 export const NFTMarketplaceContext = React.createContext({
+  isConnected: false,
   linkTo: (href: string, e?: React.MouseEvent<HTMLElement, MouseEvent>) => {},
   openWallet: () => {},
+  balance: {} as UseBalanceReturnType<GetBalanceData>,
 });
 
 export const NFTMarketplaceProvider = ({
@@ -16,7 +19,10 @@ export const NFTMarketplaceProvider = ({
   children: React.ReactNode;
 }) => {
   const { open } = useWeb3Modal();
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
+  const balance = isConnected
+    ? useBalance({ address })
+    : ({} as UseBalanceReturnType<GetBalanceData>);
   const router = useRouter();
 
   const linkTo = (
@@ -34,8 +40,10 @@ export const NFTMarketplaceProvider = ({
   return (
     <NFTMarketplaceContext.Provider
       value={{
+        isConnected,
         linkTo,
         openWallet: open,
+        balance,
       }}
     >
       {children}
