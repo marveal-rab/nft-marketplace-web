@@ -6,6 +6,7 @@ import { WalletConnectProvider } from "./contexts/wallet-connect-provider";
 import { cookieToInitialState } from "wagmi";
 import { config } from "@/app/config/wagmi";
 import { headers } from "next/headers";
+import { ContractsEventProvider } from "./contexts/contracts-event-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,9 +25,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <WalletConnectProvider initialState={initialState}>
-          <NFTMarketplaceProvider>
-            <div className="min-h-screen">{children}</div>
-          </NFTMarketplaceProvider>
+          <ContractsEventProvider>
+            <NFTMarketplaceProvider>
+              <div className="min-h-screen">{children}</div>
+            </NFTMarketplaceProvider>
+          </ContractsEventProvider>
         </WalletConnectProvider>
       </body>
     </html>
