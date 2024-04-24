@@ -8,6 +8,8 @@
 .yarn
 yarn.lock
 package-lock.json
+.pnp.cjs
+.pnp.loader.mjs
 
 # testing
 /coverage
