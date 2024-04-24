@@ -2,7 +2,7 @@
 
 import React from "react";
 import { BiWallet } from "react-icons/bi";
-import { NFTMarketplaceContext } from "@/app/marketplace-provider";
+import { NFTMarketplaceContext } from "@/contexts/marketplace-provider";
 import { UseBalanceReturnType, useBalance } from "wagmi";
 import { GetBalanceData } from "wagmi/query";
 

@@ -8,7 +8,7 @@ import { FiSettings } from "react-icons/fi";
 import { GrLanguage } from "react-icons/gr";
 
 import { Switch } from "@/app/ui";
-import { NFTMarketplaceContext } from "@/app/marketplace-provider";
+import { NFTMarketplaceContext } from "@/contexts/marketplace-provider";
 
 interface NavAvatarIconProps extends Props {}
 interface AvatarPopoverProps extends Props {

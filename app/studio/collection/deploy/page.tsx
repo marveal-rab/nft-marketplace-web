@@ -3,7 +3,7 @@
 import React, { use } from "react";
 import Nav from "./components/Nav";
 import Form from "./components/Form";
-import { useNFTCollection } from "@/app/hooks";
+import { useNFTCollection } from "@/hooks";
 
 export default function Page() {
   const { createCollection } = useNFTCollection();

@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { NFTMarketplaceProvider } from "./marketplace-provider";
-import { WalletConnectProvider } from "./contexts/wallet-connect-provider";
+import AppProviders, { WalletConnectProvider } from "@/contexts";
+import { config } from "@/config/wagmi";
 import { cookieToInitialState } from "wagmi";
-import { config } from "@/app/config/wagmi";
 import { headers } from "next/headers";
-import { ContractsEventProvider } from "./contexts/contracts-event-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,15 +19,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const initialState = cookieToInitialState(config, headers().get("cookie"));
+
   return (
     <html lang="en">
       <body className={inter.className}>
         <WalletConnectProvider initialState={initialState}>
-          <ContractsEventProvider>
-            <NFTMarketplaceProvider>
-              <div className="min-h-screen">{children}</div>
-            </NFTMarketplaceProvider>
-          </ContractsEventProvider>
+          <AppProviders>
+            <div className="min-h-screen">{children}</div>
+          </AppProviders>
         </WalletConnectProvider>
       </body>
     </html>

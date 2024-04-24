@@ -1,7 +1,7 @@
 import React from "react";
 import Avatar from "@/app/components/Nav/AvatarIcon";
 import Wallet from "@/app/components/Nav/WalletIcon";
-import { NFTMarketplaceContext } from "@/app/marketplace-provider";
+import { NFTMarketplaceContext } from "@/contexts";
 import { FaArrowLeft } from "react-icons/fa";
 
 const Nav = () => {
