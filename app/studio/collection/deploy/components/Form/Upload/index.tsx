@@ -14,11 +14,12 @@ const Upload: React.FC<UploadProps> = (props) => {
   const { fileUri, setFileUri } = props;
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
-  const [file, setFile] = React.useState<File | null>(null);
+  const [file, setFile] = React.useState<File | undefined>(undefined);
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log("File input change");
-    setFile(e.target.files?.[0] ?? null);
+    const f = e.target.files?.[0];
+    setFile(f);
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -51,7 +52,7 @@ const Upload: React.FC<UploadProps> = (props) => {
             className="opacity-0 group-hover:opacity-100 hover:text-neutral-500"
             onClick={(e) => {
               e.stopPropagation();
-              setFile(null);
+              setFile(undefined);
             }}
           >
             <FaRegTrashCan size={20} />

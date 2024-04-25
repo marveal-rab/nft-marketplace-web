@@ -8,13 +8,13 @@ import {
   NFTMarketplaceContext,
 } from "./marketplace-provider";
 import { WalletConnectProvider } from "./wallet-connect-provider";
-import { IPFSProvider, IPFSContext } from "./ipfs-provider";
+import { SessionProvider } from "./session-provider";
 
 const AppProviders = ({ children }: { children: React.ReactNode }) => {
   return (
     <NFTMarketplaceProvider>
       <ContractsEventProvider>
-        <IPFSProvider>{children}</IPFSProvider>
+        <SessionProvider>{children}</SessionProvider>
       </ContractsEventProvider>
     </NFTMarketplaceProvider>
   );
@@ -22,9 +22,4 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
 
 export default AppProviders;
 
-export {
-  WalletConnectProvider,
-  ContractsEventContext,
-  NFTMarketplaceContext,
-  IPFSContext,
-};
+export { WalletConnectProvider, ContractsEventContext, NFTMarketplaceContext };

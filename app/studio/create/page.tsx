@@ -4,7 +4,7 @@ import React from "react";
 import { LuLayoutGrid } from "react-icons/lu";
 import { FaArrowRight } from "react-icons/fa";
 import { AiOutlinePicture } from "react-icons/ai";
-import { NFTMarketplaceContext } from "@/app/marketplace-provider";
+import { NFTMarketplaceContext } from "@/contexts";
 
 export default function Page() {
   const { linkTo } = React.useContext(NFTMarketplaceContext);

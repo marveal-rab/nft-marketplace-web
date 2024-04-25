@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { NFTMarketplaceContext } from "@/app/marketplace-provider";
+import { NFTMarketplaceContext } from "@/contexts";
 
 interface NavItemMetadata extends React.HTMLAttributes<HTMLElement> {
   title: string;
