@@ -6,12 +6,10 @@ import {
   defaultSession,
   sessionOptions,
 } from "@/types/session";
-import { Cryptor } from "@/utils";
+import { Graphqls } from "@/utils";
 import { IronSession, getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 import { SiweMessage, generateNonce } from "siwe";
-
-const ENCRYPT_KEY = Buffer.from("bW5pRKLlkdMOe028l0vOqGmKM87KhUfC", "utf8");
 
 export async function getSession(): Promise<IronSession<SessionData>> {
   "use server";
@@ -64,7 +62,8 @@ export async function verify(params: VerifyParams): Promise<boolean> {
     }
     session.siwe = fields;
     session.isLoggedIn = true;
-    session.token = Cryptor.encrypt(fields.data.address, ENCRYPT_KEY);
+    const response = await Graphqls.generateToken(fields.data.address);
+    session.token = `${response.tokenType} ${response.secret}`;
     await session.save();
     return true;
   } catch (error) {
@@ -78,19 +77,4 @@ export async function me(): Promise<string | undefined> {
 
   const session = await getSession();
   return session.siwe?.data.address;
-}
-
-export async function uploadFile(file: File): Promise<string> {
-  "use server";
-
-  const formData = new FormData();
-  formData.append("file", file);
-
-  const response = await fetch("/api/upload", {
-    method: "POST",
-    body: formData,
-  });
-
-  const data = await response.json();
-  return data.url;
 }
