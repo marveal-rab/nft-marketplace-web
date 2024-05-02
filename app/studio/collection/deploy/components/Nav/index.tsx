@@ -18,10 +18,10 @@ const Nav = () => {
           >
             <FaArrowLeft
               size={20}
-              className="text-neutral-500 group-hover:text-neutral-100"
+              className="text-neutral-200 group-hover:text-neutral-100"
             />
           </div>
-          <span className="font-bold text-xl">Create an NFT</span>
+          <span className="font-bold text-xl">Drop a Collection</span>
         </div>
         <div className="flex items-center gap-2">
           <Wallet />

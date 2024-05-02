@@ -6,11 +6,3 @@ export const GenerateToken = /* GraphQL */ `
     }
   }
 `;
-
-export const UploadFile = /* GraphQL */ `
-  mutation UploadFile($file: Upload!) {
-    uploadFile(file: $file) {
-      url
-    }
-  }
-`;

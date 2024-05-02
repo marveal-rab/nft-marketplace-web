@@ -7,12 +7,12 @@ import { FaRegTrashCan } from "react-icons/fa6";
 import { Graphqls } from "@/utils";
 
 interface UploadProps extends Props {
-  fileUri: string;
-  setFileUri: (fileUri: string) => void;
+  fileUrl: string;
+  setFileUrl: (fileUri: string) => void;
 }
 
 const Upload: React.FC<UploadProps> = (props) => {
-  const { fileUri, setFileUri } = props;
+  const { fileUrl, setFileUrl } = props;
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const [file, setFile] = React.useState<File | undefined>(undefined);
@@ -20,19 +20,23 @@ const Upload: React.FC<UploadProps> = (props) => {
   const handleFileInputChange = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    console.log("File input change");
     const f = e.target.files?.[0];
     if (!f) return;
     setFile(f);
-    const data = await Graphqls.uploadFile(f);
-    console.log("File uploaded", data);
+    await uploadFile(f);
   };
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const uploadFile = async (f: File) => {
+    const data = await Graphqls.uploadFile(f);
+    setFileUrl(data.data.uploadFile.url);
+  };
+
+  const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const droppedFile = e.dataTransfer.files[0];
-    console.log("File dropped", droppedFile);
+    if (!droppedFile) return;
     setFile(droppedFile);
+    await uploadFile(droppedFile);
   };
 
   return (

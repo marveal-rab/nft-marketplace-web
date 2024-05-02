@@ -13,9 +13,9 @@ import { SessionProvider } from "./session-provider";
 const AppProviders = ({ children }: { children: React.ReactNode }) => {
   return (
     <NFTMarketplaceProvider>
-      <ContractsEventProvider>
-        <SessionProvider>{children}</SessionProvider>
-      </ContractsEventProvider>
+      <SessionProvider>
+        <ContractsEventProvider>{children}</ContractsEventProvider>
+      </SessionProvider>
     </NFTMarketplaceProvider>
   );
 };

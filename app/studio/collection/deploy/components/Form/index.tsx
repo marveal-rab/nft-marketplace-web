@@ -6,8 +6,8 @@ import { Input } from "@/app/ui";
 import Blockchains from "./BlockChain";
 
 interface FormProps extends Props {
-  fileUri: string;
-  setFileUri: (fileUri: string) => void;
+  fileUrl: string;
+  setFileUrl: (fileUri: string) => void;
   name: string;
   setName: (name: string) => void;
   symbol: string;
@@ -18,8 +18,8 @@ interface FormProps extends Props {
 
 const Form: React.FC<FormProps> = (props) => {
   const {
-    fileUri,
-    setFileUri,
+    fileUrl,
+    setFileUrl,
     name,
     setName,
     symbol,
@@ -44,7 +44,7 @@ const Form: React.FC<FormProps> = (props) => {
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-4">
             <span className="font-semibold">Logo image</span>
-            <Upload fileUri={fileUri} setFileUri={setFileUri} />
+            <Upload fileUrl={fileUrl} setFileUrl={setFileUrl} />
           </div>
           <div className="flex gap-4 justify-between">
             <div className="flex flex-col gap-4 w-2/3">
