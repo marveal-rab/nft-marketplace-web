@@ -6,3 +6,26 @@ export const GenerateToken = /* GraphQL */ `
     }
   }
 `;
+
+export const CreateUser = /* GraphQL */ `
+  mutation ($user: NewUser!) {
+    createUser(user: $user) {
+      id
+      address
+    }
+  }
+`;
+
+export const CreateCollection = /* GraphQL */ `
+{
+  mutation ($collection: NewCollection!) {
+    createCollection (collection: $collection) {
+      id
+      name
+      symbol
+      owner
+      picUrl
+    }
+  }
+}
+`;

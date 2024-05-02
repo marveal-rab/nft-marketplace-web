@@ -1,6 +1,7 @@
 "use server";
 
 import {
+  Current,
   SessionData,
   VerifyParams,
   defaultSession,
@@ -65,6 +66,7 @@ export async function verify(params: VerifyParams): Promise<boolean> {
     const response = await Graphqls.generateToken(fields.data.address);
     session.token = `${response.tokenType} ${response.secret}`;
     await session.save();
+    await Graphqls.createUser(session.token);
     return true;
   } catch (error) {
     console.error("Error verifying message", error);
@@ -72,9 +74,12 @@ export async function verify(params: VerifyParams): Promise<boolean> {
   return false;
 }
 
-export async function me(): Promise<string | undefined> {
+export async function current(): Promise<Current> {
   "use server";
 
   const session = await getSession();
-  return session.siwe?.data.address;
+  return {
+    address: session.siwe?.data.address,
+    token: session.token,
+  };
 }

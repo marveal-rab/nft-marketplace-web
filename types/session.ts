@@ -9,6 +9,11 @@ export interface SessionData {
   token?: string;
 }
 
+export interface Current {
+  address: string | undefined;
+  token: string | undefined;
+}
+
 export interface VerifyParams {
   message: string;
   signature: string;

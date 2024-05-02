@@ -14,6 +14,10 @@ import {
 } from "./components/Dialog/AddTrait";
 import { MdClose } from "react-icons/md";
 import { FaPencilAlt } from "react-icons/fa";
+import { CollectionData } from "@/types/collection";
+import { Graphqls } from "@/utils";
+import { current } from "@/app/actions";
+import Collection from "./components/Collection";
 
 export default function Page() {
   const { linkTo } = React.useContext(NFTMarketplaceContext);
@@ -23,6 +27,9 @@ export default function Page() {
   const [modifyAddTrait, setModifyAddTrait] = React.useState(
     {} as ModifyAddTrait
   );
+  const [collection, setCollection] = React.useState<
+    CollectionData | undefined
+  >(undefined);
 
   const handleAddTrait = (trait: AddTrait) => {
     setTraits([...traits, trait]);
@@ -85,25 +92,7 @@ export default function Page() {
           <div className="w-1/2 flex flex-col gap-6">
             <div className="flex flex-col gap-2">
               <span className="font-semibold">Collection *</span>
-              <div className="">
-                <div
-                  className="group p-4 h-24 bg-neutral-900 rounded-xl flex items-center gap-4 hover:bg-neutral-800 cursor-pointer"
-                  onClick={(e) => {
-                    linkTo("/studio/collection/deploy", e);
-                  }}
-                >
-                  <div className="w-16 h-16 flex items-center justify-center bg-neutral-800 rounded-xl group-hover:bg-neutral-700">
-                    <FaPlus />
-                  </div>
-                  <span className="font-semibold">Create a new Collection</span>
-                </div>
-                <span className="text-xs text-neutral-500">
-                  Not all collections are eligible.{" "}
-                  <a href="#" className="text-sky-600">
-                    Learn more
-                  </a>
-                </span>
-              </div>
+              <Collection current={collection} setCurrent={setCollection} />
             </div>
             <div className="flex flex-col gap-2">
               <p className="font-semibold">Name *</p>

@@ -4,7 +4,7 @@ import React, { use } from "react";
 import Nav from "./components/Nav";
 import Form from "./components/Form";
 import { useNFTCollection } from "@/hooks";
-import { me } from "@/app/actions";
+import { current } from "@/app/actions";
 
 export default function Page() {
   const { createCollection } = useNFTCollection();
@@ -31,11 +31,11 @@ export default function Page() {
     event: React.MouseEvent<HTMLElement, MouseEvent>
   ) => {
     event.stopPropagation();
-    const address = await me();
+    const curr = await current();
     // TODO: open connect wallet modal
-    if (!address) return;
+    if (!curr.address) return;
     await createCollection({
-      to: address,
+      to: curr.address,
       name,
       symbol,
       uri: fileUrl,

@@ -1,5 +1,5 @@
 import React from "react";
-import { useWriteContract } from "wagmi";
+import { useReadContract, useWriteContract } from "wagmi";
 import NFTCollecitonTokenAbi from "@/abi/NFTCollecitonToken.json";
 
 export interface CreateCollectionParams {
@@ -25,5 +25,21 @@ export function useNFTCollection() {
       console.error("Failed to create collection", error);
     }
   };
-  return { createCollection };
+
+  const getTokenUrlById = async (tokenId: number): Promise<string> => {
+    try {
+      const { data } = useReadContract({
+        abi: NFTCollecitonTokenAbi.abi,
+        address: process.env
+          .NEXT_PUBLIC_NFT_COLLECTION_CONTRACT_ADDRESS as `0x${string}`,
+        functionName: "tokenURI",
+        args: [tokenId],
+      });
+      return data as string;
+    } catch (error) {
+      console.error("Failed to get token URI", error);
+      throw error;
+    }
+  };
+  return { createCollection, getTokenUrlById };
 }

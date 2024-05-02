@@ -34,5 +34,5 @@ export const request = async (
     mode: "cors",
     ...options,
   });
-  return response.json();
+  return await response.json();
 };
