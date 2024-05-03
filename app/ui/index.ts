@@ -5,6 +5,7 @@ import { SelectorItem, SelectorProps, Selector } from "./Selector";
 import { Input, SearchInput, TextArea } from "./Input";
 import { CheckBoxOption, CheckBox, CheckBoxGroup } from "./CheckBox";
 import { CardProps, Card } from "./Card";
+import Dialog, { DialogProps } from "./Dialog";
 
 export type {
   ArrowProps,
@@ -13,6 +14,7 @@ export type {
   SelectorProps,
   CheckBoxOption,
   CardProps,
+  DialogProps,
 };
 export {
   Switch,
@@ -26,4 +28,5 @@ export {
   CheckBox,
   CheckBoxGroup,
   Card,
+  Dialog,
 };

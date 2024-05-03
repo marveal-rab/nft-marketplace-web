@@ -17,9 +17,8 @@ export const CreateUser = /* GraphQL */ `
 `;
 
 export const CreateCollection = /* GraphQL */ `
-{
   mutation ($collection: NewCollection!) {
-    createCollection (collection: $collection) {
+    createCollection(collection: $collection) {
       id
       name
       symbol
@@ -27,5 +26,4 @@ export const CreateCollection = /* GraphQL */ `
       picUrl
     }
   }
-}
 `;
