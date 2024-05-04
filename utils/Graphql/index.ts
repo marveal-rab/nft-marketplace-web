@@ -1,7 +1,8 @@
 import { BASE_URL, post } from "./request";
 import * as Mutations from "./mutation";
 import * as Queries from "./query";
-import { NewCollectionParams } from "@/types/collection";
+import { FindCollectionInput, NewCollectionParams } from "@/types/collection";
+import { TokenType } from "@/types/session";
 
 export const generateToken = async (address: string) => {
   const response = await post(Mutations.GenerateToken, { address });
@@ -25,12 +26,15 @@ export const createUser = async (authorization: string) => {
 
 export const createCollection = async (
   collection: NewCollectionParams,
-  authorization: string
+  authorization: string | undefined
 ) => {
+  if (!authorization) {
+    throw new Error("No authorization");
+  }
   const response = await post(
     Mutations.CreateCollection,
     {
-      collection,
+      newCollection: collection,
     },
     {
       headers: {
@@ -38,7 +42,7 @@ export const createCollection = async (
       },
     }
   );
-  return response.data;
+  return response;
 };
 
 export const uploadFile = async (file: File) => {
@@ -68,4 +72,23 @@ export const listCollectionsForOwner = async (authorization: string) => {
     }
   );
   return response.data.listCollectionsForOwner;
+};
+
+export const findCollectionForOwner = async (
+  input: FindCollectionInput,
+  authorization: TokenType
+) => {
+  if (!authorization) {
+    throw new Error("No authorization");
+  }
+  const response = await post(
+    Queries.FindCollectionForOwner,
+    { input },
+    {
+      headers: {
+        Authorization: authorization,
+      },
+    }
+  );
+  return response.data.findCollectionForOwner;
 };

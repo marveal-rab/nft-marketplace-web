@@ -8,7 +8,7 @@ export interface DialogProps extends Props {
   close: () => void;
 }
 
-const Dialog: React.FC<DialogProps> = (props: DialogProps) => {
+export const Dialog: React.FC<DialogProps> = (props: DialogProps) => {
   const { title, open = true, close, children } = props;
 
   return (
@@ -35,4 +35,32 @@ const Dialog: React.FC<DialogProps> = (props: DialogProps) => {
   );
 };
 
-export default Dialog;
+export interface CoverProps extends Props {
+  open?: boolean;
+  close: () => void;
+}
+
+export const Cover: React.FC<CoverProps> = (props: CoverProps) => {
+  const { open = true, close, children } = props;
+  return (
+    <D open={open} onClose={close} as="div" className="relative z-10">
+      <div className="fixed inset-0 bg-black" aria-hidden="true" />
+      <div className="fixed inset-0 flex w-screen h-screen items-center justify-center p-4">
+        <D.Panel className="w-full h-full">
+          <D.Title as="h3" className="text-2xl font-bold relative">
+            <div
+              className="absolute top-0 right-0 hover:text-neutral-500 cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                close();
+              }}
+            >
+              <MdClose size={20} />
+            </div>
+          </D.Title>
+          <div className="w-full h-full">{children}</div>
+        </D.Panel>
+      </div>
+    </D>
+  );
+};

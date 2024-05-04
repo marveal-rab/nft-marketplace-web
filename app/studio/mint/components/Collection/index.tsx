@@ -8,11 +8,13 @@ import { LuLayoutGrid } from "react-icons/lu";
 import { FaAngleDown } from "react-icons/fa";
 
 export interface CollectionProps extends Props {
-  current: CollectionData | undefined;
-  setCurrent: (collection: CollectionData | undefined) => void;
+  collection: CollectionData | undefined;
+  setCollection: (collection: CollectionData | undefined) => void;
 }
 
 const Collection: React.FC<CollectionProps> = (props) => {
+  const { collection, setCollection } = props;
+
   const { linkTo } = React.useContext(NFTMarketplaceContext);
   const [collections, setCollections] = React.useState([] as CollectionData[]);
   const [open, setOpen] = React.useState(false);
@@ -38,24 +40,49 @@ const Collection: React.FC<CollectionProps> = (props) => {
     <div>
       {collections && collections.length > 0 ? (
         <div className="relative">
-          <div
-            className="group p-4 h-24 bg-neutral-900 rounded-xl flex justify-between items-center hover:bg-neutral-800 cursor-pointer"
-            onClick={handleClick}
-          >
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 flex items-center justify-center bg-neutral-800 rounded-xl group-hover:bg-neutral-700">
-                <LuLayoutGrid />
-              </div>
-              <span className="font-semibold">Choose a Collection</span>
-            </div>
+          {collection ? (
             <div
-              className={`transition duration-100 ease-linear ${
-                open ? "rotate-180" : "rotate-0"
-              }`}
+              className="group p-4 h-24 rounded-xl flex items-center justify-between hover:bg-neutral-800 cursor-pointer border-[1px] border-gray-500/30"
+              onClick={handleClick}
             >
-              <FaAngleDown />
+              <div className="flex items-center gap-4">
+                <img
+                  src={collection.picUrl}
+                  alt=""
+                  className="w-16 h-16 flex items-center justify-center rounded-xl"
+                />
+                <span className="font-semibold text-base">
+                  {collection.name}
+                </span>
+              </div>
+              <div
+                className={`transition duration-100 ease-linear ${
+                  open ? "rotate-180" : "rotate-0"
+                }`}
+              >
+                <FaAngleDown />
+              </div>
             </div>
-          </div>
+          ) : (
+            <div
+              className="group p-4 h-24 bg-neutral-900 rounded-xl flex justify-between items-center hover:bg-neutral-800 cursor-pointer"
+              onClick={handleClick}
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 flex items-center justify-center bg-neutral-800 rounded-xl group-hover:bg-neutral-700">
+                  <LuLayoutGrid />
+                </div>
+                <span className="font-semibold">Choose a Collection</span>
+              </div>
+              <div
+                className={`transition duration-100 ease-linear ${
+                  open ? "rotate-180" : "rotate-0"
+                }`}
+              >
+                <FaAngleDown />
+              </div>
+            </div>
+          )}
           {open && (
             <div className="bg-neutral-900 rounded-xl absolute z-10 w-full px-2 py-1 top-[100px] flex flex-col gap-1">
               <div
@@ -72,20 +99,29 @@ const Collection: React.FC<CollectionProps> = (props) => {
                 </span>
               </div>
               {collections &&
-                collections.map((collection, index) => {
+                collections.map((item, index) => {
                   return (
                     <div
-                      className="group p-4 h-16 rounded-xl flex items-center gap-4 hover:bg-neutral-800 cursor-pointer"
+                      className={`group p-4 h-16 rounded-xl flex items-center gap-4 ${
+                        item.id === collection?.id
+                          ? "bg-neutral-800"
+                          : "hover: cursor-pointer"
+                      }`}
                       key={index}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCollection(item);
+                        setOpen(false);
+                      }}
                     >
                       <img
-                        src={collection.picUrl}
-                        alt=""
+                        src={item.picUrl}
+                        alt={item.name}
                         className="w-12 h-12 flex items-center justify-center rounded-xl"
                       />
                       <div className="flex flex-col gap-1">
                         <span className="font-semibold text-base">
-                          {collection.name}
+                          {item.name}
                         </span>
                         <span className="text-xs text-neutral-500">
                           Ethereum Mainnet · ERC1155

@@ -9,3 +9,17 @@ export const ListCollectionsForOwner = /* GraphQL */ `
     }
   }
 `;
+
+export const FindCollectionForOwner = /* GraphQL */ `
+  query FindCollectionForOwner($input: FindCollectionInput!) {
+    findCollectionForOwner(input: $input) {
+      id
+      name
+      symbol
+      owner
+      picUrl
+      contractAddress
+      chainId
+    }
+  }
+`;

@@ -17,13 +17,15 @@ export const CreateUser = /* GraphQL */ `
 `;
 
 export const CreateCollection = /* GraphQL */ `
-  mutation ($collection: NewCollection!) {
-    createCollection(collection: $collection) {
+  mutation ($newCollection: NewCollection!) {
+    createCollection(newCollection: $newCollection) {
       id
       name
       symbol
       owner
       picUrl
+      contractAddress
+      chainId
     }
   }
 `;

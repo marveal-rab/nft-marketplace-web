@@ -15,12 +15,17 @@ import {
 import { MdClose } from "react-icons/md";
 import { FaPencilAlt } from "react-icons/fa";
 import { CollectionData } from "@/types/collection";
+import Collection from "./components/Collection";
+import { useSearchParams } from "next/navigation";
 import { Graphqls } from "@/utils";
 import { current } from "@/app/actions";
-import Collection from "./components/Collection";
 
 export default function Page() {
   const { linkTo } = React.useContext(NFTMarketplaceContext);
+  const searchParams = useSearchParams();
+  const collectionAddress = searchParams.has("collection")
+    ? (searchParams.get("collection") as `0x${string}`)
+    : undefined;
 
   const [showAddTrait, setShowAddTrait] = React.useState(false);
   const [traits, setTraits] = React.useState([] as AddTrait[]);
@@ -30,6 +35,22 @@ export default function Page() {
   const [collection, setCollection] = React.useState<
     CollectionData | undefined
   >(undefined);
+
+  React.useEffect(() => {
+    const fetchCollection = async () => {
+      if (collectionAddress) {
+        const curr = await current();
+        const collection = await Graphqls.findCollectionForOwner(
+          {
+            collectionAddress,
+          },
+          curr.token
+        );
+        setCollection(collection);
+      }
+    };
+    fetchCollection();
+  }, []);
 
   const handleAddTrait = (trait: AddTrait) => {
     setTraits([...traits, trait]);
@@ -92,7 +113,10 @@ export default function Page() {
           <div className="w-1/2 flex flex-col gap-6">
             <div className="flex flex-col gap-2">
               <span className="font-semibold">Collection *</span>
-              <Collection current={collection} setCurrent={setCollection} />
+              <Collection
+                collection={collection}
+                setCollection={setCollection}
+              />
             </div>
             <div className="flex flex-col gap-2">
               <p className="font-semibold">Name *</p>

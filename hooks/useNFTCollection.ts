@@ -1,8 +1,9 @@
 import React from "react";
-import { useReadContract, useWalletClient, useWriteContract } from "wagmi";
-import NFTCollecitonTokenAbi from "@/abi/NFTCollecitonToken.json";
+import { useWriteContract } from "wagmi";
+
 import { ganache } from "@/config/wagmi";
 import NFTCollection from "@/abi/NFTCollection.json";
+import { WalletClient } from "viem";
 
 export interface CreateCollectionParams {
   to: string;
@@ -16,7 +17,7 @@ export enum ChainId {
 }
 
 export interface DeployNFTCollectionContractParams {
-  owner: string;
+  owner: `0x${string}`;
   name: string;
   symbol: string;
   uri: string;
@@ -40,33 +41,16 @@ export function useNFTCollection() {
   //   }
   // };
 
-  // const getTokenUrlById = async (tokenId: number): Promise<string> => {
-  //   try {
-  //     const { data } = useReadContract({
-  //       abi: NFTCollecitonTokenAbi.abi,
-  //       address: process.env
-  //         .NEXT_PUBLIC_NFT_COLLECTION_CONTRACT_ADDRESS as `0x${string}`,
-  //       functionName: "tokenURI",
-  //       args: [tokenId],
-  //     });
-  //     return data as string;
-  //   } catch (error) {
-  //     console.error("Failed to get token URI", error);
-  //     throw error;
-  //   }
-  // };
-
-  const deployContract = async (params: DeployNFTCollectionContractParams) => {
-    const minter = process.env
-      .NEXT_PUBLIC_NFT_COLLECTION_CONTRACT_MINTER_ADDRESS as `0x${string}`;
-    const { data: walletClient } = useWalletClient({
-      chainId: params.chain as number,
-    });
-    const hash = await walletClient?.deployContract({
+  const deployContract = async (
+    walletClient: WalletClient,
+    params: DeployNFTCollectionContractParams
+  ) => {
+    const hash = await walletClient.deployContract({
       abi: NFTCollection.abi,
       bytecode: NFTCollection.bytecode as `0x${string}`,
-      // admin, minter, uri, name, symbol
-      args: [params.owner, minter, params.uri, params.name, params.symbol],
+      args: [params.owner, params.uri, params.name, params.symbol],
+      account: params.owner,
+      chain: walletClient.chain,
     });
     return hash;
   };

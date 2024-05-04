@@ -3,6 +3,7 @@
 import {
   Current,
   SessionData,
+  TokenType,
   VerifyParams,
   defaultSession,
   sessionOptions,
@@ -80,6 +81,6 @@ export async function current(): Promise<Current> {
   const session = await getSession();
   return {
     address: session.siwe?.data.address,
-    token: session.token,
+    token: session.token as TokenType,
   };
 }

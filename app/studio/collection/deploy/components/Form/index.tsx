@@ -13,7 +13,7 @@ interface FormProps extends Props {
   symbol: string;
   setSymbol: (symbol: string) => void;
   blockchain: number;
-  setBlockchain: (blockchain: number) => void;
+  changeBlockchain: (bc: number) => void;
 }
 
 const Form: React.FC<FormProps> = (props) => {
@@ -25,7 +25,7 @@ const Form: React.FC<FormProps> = (props) => {
     symbol,
     setSymbol,
     blockchain,
-    setBlockchain,
+    changeBlockchain,
   } = props;
 
   return (
@@ -74,7 +74,7 @@ const Form: React.FC<FormProps> = (props) => {
             <div className="font-semibold">Blockchain</div>
             <Blockchains
               defaultBlockchain={blockchain}
-              setBlockchain={setBlockchain}
+              setBlockchain={changeBlockchain}
             />
           </div>
         </div>

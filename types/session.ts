@@ -11,7 +11,7 @@ export interface SessionData {
 
 export interface Current {
   address: string | undefined;
-  token: string | undefined;
+  token: TokenType;
 }
 
 export interface VerifyParams {
@@ -31,3 +31,5 @@ export const sessionOptions: SessionOptions = {
     secure: process.env.NODE_ENV === "production",
   },
 };
+
+export type TokenType = `Bearer ${string}` | undefined;
