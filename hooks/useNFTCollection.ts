@@ -4,6 +4,7 @@ import { useWriteContract } from "wagmi";
 import { ganache } from "@/config/wagmi";
 import NFTCollection from "@/abi/NFTCollection.json";
 import { WalletClient } from "viem";
+import { AddressType } from "@/types";
 
 export interface CreateCollectionParams {
   to: string;
@@ -22,6 +23,12 @@ export interface DeployNFTCollectionContractParams {
   symbol: string;
   uri: string;
   chain: ChainId;
+}
+
+export interface MintNFTParams {
+  address: AddressType;
+  tokenId: number;
+  amount: number;
 }
 
 export function useNFTCollection() {
@@ -55,5 +62,22 @@ export function useNFTCollection() {
     return hash;
   };
 
-  return { deployContract };
+  const mintNFT = async (params: MintNFTParams) => {
+    if (!params.address) {
+      throw new Error("contract address can not be empty");
+    }
+    try {
+      writeContract({
+        abi: NFTCollection.abi,
+        address: params.address,
+        functionName: "mint",
+        args: [params.tokenId, params.amount],
+      });
+    } catch (error) {
+      console.error("Failed to create collection", error);
+      throw error;
+    }
+  };
+
+  return { deployContract, mintNFT };
 }

@@ -4,7 +4,8 @@ import React from "react";
 import { AiOutlinePicture } from "react-icons/ai";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { FaRegTrashCan } from "react-icons/fa6";
-import { Graphqls } from "@/utils";
+import { API } from "@/utils/Graphql";
+import { current } from "@/app/actions";
 
 interface UploadProps extends Props {
   fileUrl: string;
@@ -27,8 +28,9 @@ const Upload: React.FC<UploadProps> = (props) => {
   };
 
   const uploadFile = async (f: File) => {
-    const data = await Graphqls.uploadFile(f);
-    setFileUrl(data.data.uploadFile.url);
+    let curr = await current();
+    const data = await API.uploadFile(f, curr.token);
+    setFileUrl(data.url);
   };
 
   const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {

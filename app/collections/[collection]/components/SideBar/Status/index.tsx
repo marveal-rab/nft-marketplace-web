@@ -1,6 +1,6 @@
 "use client";
 
-import { Accordion } from "@/app/ui";
+import { Accordion } from "@/ui";
 import React from "react";
 
 interface StatusItemProps extends React.HTMLAttributes<HTMLDivElement> {

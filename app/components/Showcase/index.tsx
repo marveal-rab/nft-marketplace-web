@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 /// internal imports
-import { Arrow, Carousel } from "@/app/ui";
+import { Arrow, Carousel } from "@/ui";
 import "./styles.css";
 
 interface ShowcaseItemProps extends React.HTMLAttributes<HTMLDivElement> {

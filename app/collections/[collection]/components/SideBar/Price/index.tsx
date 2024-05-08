@@ -1,5 +1,5 @@
 import React from "react";
-import { Accordion, Input, Selector, SelectorItem } from "@/app/ui";
+import { Accordion, Input, Selector, SelectorItem } from "@/ui";
 
 interface PriceProps extends React.HTMLAttributes<HTMLDivElement> {}
 

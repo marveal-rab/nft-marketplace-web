@@ -1,6 +1,6 @@
 "use client";
 
-import { Selector } from "@/app/ui";
+import { Selector } from "@/ui";
 import { Arrays } from "@/utils";
 import { title } from "process";
 import React, { useEffect } from "react";

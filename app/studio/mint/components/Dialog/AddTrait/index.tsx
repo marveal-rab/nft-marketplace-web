@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Dialog, Input } from "@/app/ui";
+import { Dialog, Input } from "@/ui";
 
 export interface AddTrait {
   type?: string;

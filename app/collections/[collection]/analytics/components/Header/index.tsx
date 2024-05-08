@@ -1,7 +1,7 @@
 import React from "react";
 import FilterIcon from "./FilterIcon";
 import { Transition } from "@headlessui/react";
-import { SearchInput, Selector } from "@/app/ui";
+import { SearchInput, Selector } from "@/ui";
 
 interface HeaderProps {
   className?: string;

@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { ItemSummary } from "./ItemSummary";
 import ItemMain from "./ItemMain";

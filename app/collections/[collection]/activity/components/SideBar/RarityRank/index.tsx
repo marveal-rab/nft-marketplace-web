@@ -1,5 +1,5 @@
 import React from "react";
-import { Accordion, Input } from "@/app/ui";
+import { Accordion, Input } from "@/ui";
 
 interface RartityRankProps extends React.HTMLAttributes<HTMLDivElement> {}
 

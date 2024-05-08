@@ -4,20 +4,21 @@ import { AddressType } from "@/types";
 import React from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 
-export interface DeploySuccessCoverDialogProps extends Props {
+export interface MintSuccessCoverDialogProps extends Props {
   open: boolean;
   close: () => void;
 
   uri: string;
   contractAddress: AddressType;
+  tokenId: number;
   name: string;
   chainName: string;
 }
 
-export const DeploySuccessCoverDialog: React.FC<
-  DeploySuccessCoverDialogProps
-> = (props) => {
-  const { open, close, uri, name, chainName, contractAddress } = props;
+const MintSuccessCoverDialog: React.FC<MintSuccessCoverDialogProps> = (
+  props
+) => {
+  const { open, close, uri, name, chainName, tokenId, contractAddress } = props;
 
   const { linkTo } = React.useContext(NFTMarketplaceContext);
 
@@ -30,23 +31,22 @@ export const DeploySuccessCoverDialog: React.FC<
             alt={name}
             className="w-48 h-48 rounded-xl object-cover"
           />
-          <span className="text-4xl font-bold">
-            Your collection was been created
-          </span>
+          <span className="text-4xl font-bold">Your item has been minted</span>
           <p className="flex gap-3 items-center">
-            <a
-              href="#"
+            <button
               className="px-4 py-2 rounded-lg bg-neutral-900 font-semibold"
+              onClick={(e) => {}}
             >
-              View Collection
-            </a>
+              List item
+            </button>
             <button
               className="px-4 py-2 rounded-lg bg-sky-600 font-semibold"
               onClick={(e) => {
-                linkTo(`/studio/mint?collection=${contractAddress}`, e);
+                close();
+                linkTo(`/assets/base/${contractAddress}/${tokenId}`, e);
               }}
             >
-              Create an NFT
+              View item
             </button>
           </p>
           <a
@@ -61,3 +61,5 @@ export const DeploySuccessCoverDialog: React.FC<
     </Cover>
   );
 };
+
+export default MintSuccessCoverDialog;

@@ -7,7 +7,7 @@ import { BiChevronRight, BiHelpCircle } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 import { GrLanguage } from "react-icons/gr";
 
-import { Switch } from "@/app/ui";
+import { Switch } from "@/ui";
 import { NFTMarketplaceContext } from "@/contexts/marketplace-provider";
 
 interface NavAvatarIconProps extends Props {}

@@ -1,4 +1,4 @@
-import { Accordion } from "@/app/ui";
+import { Accordion } from "@/ui";
 import React from "react";
 
 interface EventTypeProps extends Props {}

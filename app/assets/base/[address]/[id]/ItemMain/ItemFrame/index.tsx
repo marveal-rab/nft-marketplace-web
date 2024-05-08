@@ -7,43 +7,9 @@ import { FaRegHeart } from "react-icons/fa";
 import { ImProfile } from "react-icons/im";
 import { Datetimes } from "@/utils";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import Countdown, { CountdownRenderProps } from "react-countdown";
+import Countdown from "react-countdown";
 import { GoTag } from "react-icons/go";
-
-const ConuntDownTimer = ({
-  days,
-  hours,
-  minutes,
-  seconds,
-  completed,
-}: CountdownRenderProps) => {
-  return (
-    <div className="text-xl font-bold">
-      {!completed && (
-        <div className="flex gap-6">
-          {days > 0 && (
-            <div className="flex flex-col gap-2">
-              <span>{days}</span>
-              <span className="text-sm font-normal">Days</span>
-            </div>
-          )}
-          <div className="flex flex-col gap-2">
-            <span>{hours}</span>
-            <span className="text-sm font-normal">Hours</span>
-          </div>
-          <div className="flex flex-col gap-2">
-            <span>{minutes}</span>
-            <span className="text-sm font-normal">Minutes</span>
-          </div>
-          <div className="flex flex-col gap-2">
-            <span>{seconds}</span>
-            <span className="text-sm font-normal">Seconds</span>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
+import ConuntDownTimer from "./countdown-timer";
 
 interface ItemFrameProps extends Props {}
 

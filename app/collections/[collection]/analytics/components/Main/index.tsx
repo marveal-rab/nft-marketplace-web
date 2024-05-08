@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Card, Selector } from "@/app/ui";
+import { Card, Selector } from "@/ui";
 import Listings from "./Listings";
 import { VolumeAndPriceChart } from "./VolumeAndPrice";
 import { FloorPriceChart } from "./FloorPrice";

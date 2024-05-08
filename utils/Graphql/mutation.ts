@@ -29,3 +29,21 @@ export const CreateCollection = /* GraphQL */ `
     }
   }
 `;
+
+export const FilesMkdir = /* GraphQL */ `
+  mutation {
+    filesMkdir {
+      name
+      hash
+      url
+    }
+  }
+`;
+
+export const CreateNFT = /* GraphQL */ `
+  mutation ($newNft: NewNFT!) {
+    createNft(newNft: $newNft) {
+      tokenId
+    }
+  }
+`;

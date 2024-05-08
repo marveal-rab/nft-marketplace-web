@@ -1,4 +1,4 @@
-import { CheckBox } from "@/app/ui";
+import { CheckBox } from "@/ui";
 import { Datetimes } from "@/utils";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";

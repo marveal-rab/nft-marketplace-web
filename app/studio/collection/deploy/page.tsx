@@ -7,19 +7,23 @@ import { useNFTCollection } from "@/hooks";
 import { current } from "@/app/actions";
 import { ChainId } from "@/hooks/useNFTCollection";
 import { useWaitForTransactionReceipt, useWalletClient } from "wagmi";
-import { Graphqls } from "@/utils";
+import { API } from "@/utils/Graphql";
 import {
   DeployStepperDialog,
   DeploySuccessCoverDialog,
 } from "./components/Dialog";
-import { AddressType } from "@/types/collection";
+import { NewCollectionParams } from "@/types/collection";
+import { AddressType } from "@/types";
 
 export default function Page() {
   const [fileUrl, setFileUrl] = React.useState<string>("");
   const [name, setName] = React.useState<string>("");
   const [symbol, setSymbol] = React.useState<string>("");
   const [blockchain, setBlockchain] = React.useState<number>(0);
-  const [chainId, setChainId] = React.useState<ChainId | undefined>(undefined);
+  const [chainId, setChainId] = React.useState<ChainId | undefined>(
+    ChainId.GANACHE
+  );
+  const [errMsg, setErrMsg] = React.useState<any | undefined>(undefined);
 
   const [valid, setValid] = React.useState<boolean>(false);
   const [openDialog, setOpenDialog] = React.useState<boolean>(false);
@@ -50,46 +54,52 @@ export default function Page() {
       console.error("No wallet client");
       throw new Error("No wallet client");
     }
+
+    const dir = await API.filesMkdir(curr.token);
+
     const hash = await deployContract(walletClient, {
       owner: curr.address as `0x${string}`,
       name,
       symbol,
-      uri: fileUrl,
+      uri: dir.url,
       chain: chainId as ChainId,
     });
     setHash(hash);
+    return {
+      dir,
+      hash,
+    };
   };
 
-  const waitReceipt = async () => {
-    try {
-      const { data } = await receipt.refetch();
-      if (!data) return;
-      console.log("Transaction", data.status, data.contractAddress);
-      if (data.status === "success") {
-        setContractAddress(data.contractAddress);
-        if (!data.contractAddress) {
-          console.error("No contract address");
-          return;
-        }
-        if (!chainId) {
-          console.error("No chain id");
-          return;
-        }
-        const curr = await current();
-        const res = await Graphqls.createCollection(
-          {
-            name,
-            symbol,
-            picUrl: fileUrl,
-            contractAddress: data.contractAddress,
-            chainId,
-          },
-          curr.token
-        );
-        console.log("Create collection", res);
+  const waitReceipt = async (dir: any) => {
+    const { data } = await receipt.refetch();
+    if (!data) return;
+    console.log("Transaction", data.status, data.contractAddress);
+    if (data.status === "success") {
+      setContractAddress(data.contractAddress);
+      if (!data.contractAddress) {
+        throw new Error("No contract address");
       }
-    } catch (error) {
-      console.error("Error", error);
+      if (!chainId) {
+        throw new Error("No chain id");
+      }
+      if (!dir) {
+        throw new Error("No directory");
+      }
+      const curr = await current();
+      const res = await API.createCollection(
+        {
+          name,
+          symbol,
+          picUrl: fileUrl,
+          contractAddress: data.contractAddress,
+          chainId,
+          dirName: dir.name,
+          dirHash: dir.hash,
+        } as NewCollectionParams,
+        curr.token
+      );
+      console.log("Create collection", res);
     }
   };
 
@@ -110,11 +120,17 @@ export default function Page() {
     event.stopPropagation();
     if (!valid) return;
     setOpenDialog(true);
-    setCurrStep(0);
-    await action();
-    setCurrStep(1);
-    await waitReceipt();
-    setCurrStep(2);
+    try {
+      setCurrStep(0);
+      const { dir } = await action();
+      setCurrStep(1);
+      await waitReceipt(dir);
+      setCurrStep(2);
+    } catch (e: any) {
+      console.error(e);
+      setErrMsg(e?.message);
+      throw e;
+    }
     setOpenCover(true);
   };
 
@@ -160,6 +176,7 @@ export default function Page() {
           setOpenDialog(false);
         }}
         currStep={currStep}
+        errMsg={errMsg}
       />
       <DeploySuccessCoverDialog
         open={openCover}

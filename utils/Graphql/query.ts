@@ -23,3 +23,9 @@ export const FindCollectionForOwner = /* GraphQL */ `
     }
   }
 `;
+
+export const NextTokenId = /* GraphQL */ `
+  query NextTokenId($contractAddress: String!) {
+    nextTokenId(contractAddress: $contractAddress)
+  }
+`;

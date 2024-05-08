@@ -8,7 +8,7 @@ import {
   defaultSession,
   sessionOptions,
 } from "@/types/session";
-import { Graphqls } from "@/utils";
+import { API } from "@/utils/Graphql";
 import { IronSession, getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 import { SiweMessage, generateNonce } from "siwe";
@@ -64,10 +64,10 @@ export async function verify(params: VerifyParams): Promise<boolean> {
     }
     session.siwe = fields;
     session.isLoggedIn = true;
-    const response = await Graphqls.generateToken(fields.data.address);
-    session.token = `${response.tokenType} ${response.secret}`;
+    const response = await API.generateToken(fields.data.address);
+    session.token = `${response.tokenType} ${response.secret}` as TokenType;
     await session.save();
-    await Graphqls.createUser(session.token);
+    await API.createUser(session.token);
     return true;
   } catch (error) {
     console.error("Error verifying message", error);
@@ -80,7 +80,7 @@ export async function current(): Promise<Current> {
 
   const session = await getSession();
   return {
-    address: session.siwe?.data.address,
+    address: session.siwe?.data.address as `0x${string}` | undefined,
     token: session.token as TokenType,
   };
 }

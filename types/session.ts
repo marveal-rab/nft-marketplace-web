@@ -1,16 +1,17 @@
 import { SessionOptions } from "iron-session";
-import { SiweMessage, SiweResponse } from "siwe";
+import { SiweResponse } from "siwe";
+import { AddressType } from ".";
 
 export interface SessionData {
   username: string;
   isLoggedIn: boolean;
   nonce?: string;
   siwe?: SiweResponse;
-  token?: string;
+  token?: TokenType;
 }
 
 export interface Current {
-  address: string | undefined;
+  address: AddressType;
   token: TokenType;
 }
 

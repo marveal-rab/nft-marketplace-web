@@ -8,6 +8,7 @@ export const Input: React.FC<InputProps> = ({
   onFocus = (event) => {},
   onBlur = (event) => {},
   onChange = (event) => {},
+  type = "text",
   ...props
 }) => {
   const { className } = props;
@@ -16,7 +17,7 @@ export const Input: React.FC<InputProps> = ({
 
   return (
     <input
-      type="text"
+      type={type}
       className={`outline-none border-gray-500/30 border-[1px] bg-transparent rounded-xl ${
         center && "text-center"
       } ${className}`}

@@ -5,7 +5,7 @@ import Image from "next/image";
 
 // internal imports
 import NavItem from "./NavItem";
-import { SearchInput } from "@/app/ui";
+import { SearchInput } from "@/ui";
 import NavProfile from "./NavProfile";
 
 const nav = [

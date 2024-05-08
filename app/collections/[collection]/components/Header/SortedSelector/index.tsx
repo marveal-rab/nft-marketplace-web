@@ -1,6 +1,6 @@
 "use client";
 
-import { Selector, SelectorItem } from "@/app/ui";
+import { Selector, SelectorItem } from "@/ui";
 import React from "react";
 import { FaSort } from "react-icons/fa";
 

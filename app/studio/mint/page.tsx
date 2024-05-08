@@ -1,9 +1,8 @@
 "use client";
 
 import React from "react";
-import { MdOutlineFileUpload } from "react-icons/md";
 import { FaArrowLeft, FaPlus } from "react-icons/fa";
-import { Input, TextArea } from "@/app/ui";
+import { Input, TextArea } from "@/ui";
 import Wallet from "@/app/components/Nav/WalletIcon";
 import Avatar from "@/app/components/Nav/AvatarIcon";
 import { NFTMarketplaceContext } from "@/contexts";
@@ -14,15 +13,28 @@ import {
 } from "./components/Dialog/AddTrait";
 import { MdClose } from "react-icons/md";
 import { FaPencilAlt } from "react-icons/fa";
-import { CollectionData } from "@/types/collection";
+import { CollectionData, NewNftTrait } from "@/types/collection";
 import Collection from "./components/Collection";
 import { useSearchParams } from "next/navigation";
-import { Graphqls } from "@/utils";
+import { API } from "@/utils/Graphql";
 import { current } from "@/app/actions";
+import Upload from "./components/Upload";
+import MintStepper from "./components/Dialog/MintStepper";
+import MintSuccessCoverDialog from "./components/Dialog/MintSuccessCover";
+import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import { AddressType } from "@/types";
+import NFTCollection from "@/abi/NFTCollection.json";
 
 export default function Page() {
   const { linkTo } = React.useContext(NFTMarketplaceContext);
   const searchParams = useSearchParams();
+
+  const { data: hash, writeContract } = useWriteContract();
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({
+      hash,
+    });
+
   const collectionAddress = searchParams.has("collection")
     ? (searchParams.get("collection") as `0x${string}`)
     : undefined;
@@ -35,12 +47,30 @@ export default function Page() {
   const [collection, setCollection] = React.useState<
     CollectionData | undefined
   >(undefined);
+  const [file, setFile] = React.useState<File | undefined>(undefined);
+  const [fileUrl, setFileUrl] = React.useState<string | undefined>(undefined);
+  const [name, setName] = React.useState<string | undefined>(undefined);
+  const [supply, setSupply] = React.useState<number | undefined>(1);
+  const [description, setDescription] = React.useState<string | undefined>(
+    undefined
+  );
+  const [externalLink, setExternalLink] = React.useState<string | undefined>(
+    undefined
+  );
+  const [tokenId, setTokenId] = React.useState<number | undefined>(undefined);
+
+  const [valid, setValid] = React.useState(false);
+
+  const [openMintStepper, setOpenMintStepper] = React.useState(false);
+  const [step, setStep] = React.useState(0);
+  const [errMsg, setErrMsg] = React.useState<string | undefined>(undefined);
+  const [openMintSuccessCover, setOpenMintSuccessCover] = React.useState(false);
 
   React.useEffect(() => {
     const fetchCollection = async () => {
       if (collectionAddress) {
         const curr = await current();
-        const collection = await Graphqls.findCollectionForOwner(
+        const collection = await API.findCollectionForOwner(
           {
             collectionAddress,
           },
@@ -51,6 +81,32 @@ export default function Page() {
     };
     fetchCollection();
   }, []);
+
+  React.useEffect(() => {
+    setValid(
+      collection !== undefined &&
+        file !== undefined &&
+        name !== undefined &&
+        supply !== undefined &&
+        supply > 0
+    );
+  }, [collection, file, name, supply]);
+
+  React.useEffect(() => {
+    const action = async () => {
+      if (!isConfirmed) {
+        return;
+      }
+      setStep(2);
+
+      // save to db
+      await saveNFT(tokenId, fileUrl);
+
+      setOpenMintStepper(false);
+      setOpenMintSuccessCover(true);
+    };
+    action();
+  }, [tokenId, fileUrl, isConfirmed]);
 
   const handleAddTrait = (trait: AddTrait) => {
     setTraits([...traits, trait]);
@@ -63,6 +119,122 @@ export default function Page() {
   const handleModifyTrait = (index: number, trait: AddTrait) => {
     setTraits(traits.map((t, i) => (i === index ? trait : t)));
     setModifyAddTrait({} as ModifyAddTrait);
+  };
+
+  const mint = async ({
+    address,
+    tokenId,
+    amount,
+  }: {
+    address: AddressType;
+    tokenId: number;
+    amount: number;
+  }) => {
+    if (!address) {
+      throw new Error("contract address can not be empty");
+    }
+    writeContract({
+      abi: NFTCollection.abi,
+      address: address,
+      functionName: "mint",
+      args: [tokenId, amount],
+    });
+  };
+
+  async function uploadFile(file: File) {
+    const curr = await current();
+    const res = await API.uploadFile(file, curr.token);
+    setFileUrl(res.url);
+    setStep(1);
+    return res;
+  }
+
+  async function nextTokenId() {
+    if (!collection) {
+      throw new Error("no collection");
+    }
+    const curr = await current();
+    let tokenId = await API.nextTokenId(collection.contractAddress, curr.token);
+    setTokenId(tokenId);
+    return tokenId;
+  }
+
+  async function mintOnContract(tokenId: number) {
+    if (!collection) {
+      throw new Error("no collection");
+    }
+    if (!supply) {
+      throw new Error("no supply");
+    }
+    await mint({
+      address: collection.contractAddress,
+      tokenId: tokenId,
+      amount: supply,
+    });
+  }
+
+  async function saveNFT(
+    tokenId: number | undefined,
+    fileUrl: string | undefined
+  ) {
+    if (!name) {
+      throw new Error("no name");
+    }
+    if (!fileUrl) {
+      throw new Error("no fileUrl");
+    }
+    if (!supply || supply < 0) {
+      throw new Error("no supply");
+    }
+    if (!collection) {
+      throw new Error("no collection");
+    }
+    if (!tokenId) {
+      throw new Error("no tokenId");
+    }
+    const curr = await current();
+    await API.createNft(
+      {
+        tokenId: tokenId,
+        name: name,
+        imageUrl: fileUrl,
+        supply: supply,
+        collection: collection.contractAddress,
+        description: description,
+        externalLink: externalLink,
+        traits: traits.map((item) => {
+          return {
+            traitType: item.name,
+            traitValue: item.type,
+          } as NewNftTrait;
+        }),
+      },
+      curr.token
+    );
+    setStep(3);
+  }
+
+  const handleClickCreate = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
+    if (!valid) {
+      throw new Error("Invalid");
+    }
+    if (!file) {
+      throw new Error("No file");
+    }
+    setOpenMintStepper(true);
+    try {
+      setStep(0);
+      await uploadFile(file);
+      const tokenId = await nextTokenId();
+      // write contract to mint NFT
+      await mintOnContract(tokenId);
+    } catch (e: any) {
+      setErrMsg(e.message);
+      throw e;
+    }
   };
 
   return (
@@ -96,19 +268,7 @@ export default function Page() {
         </div>
         <div className="flex gap-16 justify-center mt-12">
           <div className="w-1/2">
-            <div className="group text-center border-[1px]  border-dashed border-gray-500/30 hover:bg-neutral-900 w-full transition duration-100 ease-linear hover:border-solid rounded-xl pt-[100%] relative cursor-pointer">
-              <div className="absolute flex flex-col top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]">
-                <span className="flex justify-center mb-4">
-                  <MdOutlineFileUpload size={36} />
-                </span>
-                <span className="font-semibold">Drag and drop media</span>
-                <span className="text-sky-600 text-sm">Browse files</span>
-                <span className="text-neutral-400 text-sm">Max size: 50MB</span>
-                <span className="text-neutral-400 text-sm">
-                  JPG, PNG, GIF, SVG, MP4
-                </span>
-              </div>
-            </div>
+            <Upload file={file} setFile={setFile} />
           </div>
           <div className="w-1/2 flex flex-col gap-6">
             <div className="flex flex-col gap-2">
@@ -120,14 +280,29 @@ export default function Page() {
             </div>
             <div className="flex flex-col gap-2">
               <p className="font-semibold">Name *</p>
-              <Input placeholder="Name your NFT" className="ps-3 py-3" />
+              <Input
+                placeholder="Name your NFT"
+                className="ps-3 py-3"
+                defaultValue={name}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setName(e.target.value);
+                }}
+              />
             </div>
             <div className="flex flex-col gap-2">
               <p className="font-semibold">Supply *</p>
               <Input
                 placeholder="Number of supply"
-                defaultValue={"1"}
+                defaultValue={supply}
                 className="ps-3 py-3"
+                type="number"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  let value = parseInt(e.target.value);
+                  if (value < 0) {
+                    value = 0;
+                  }
+                  setSupply(value);
+                }}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -135,6 +310,10 @@ export default function Page() {
               <TextArea
                 placeholder="Enter a description"
                 className="ps-3 px-3 py-2"
+                defaultValue={description}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                  setDescription(e.target.value);
+                }}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -142,6 +321,10 @@ export default function Page() {
               <Input
                 placeholder="https://collection.io/item/123"
                 className="ps-3 py-3"
+                defaultValue={externalLink}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setExternalLink(e.target.value);
+                }}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -200,8 +383,15 @@ export default function Page() {
         </div>
       </div>
       <div className="w-full h-20 flex items-center justify-end border-t-[1px] border-t-gray-500/30 fixed bottom-0 left-0 bg-black mx-auto px-16">
-        <button className="bg-sky-600 font-bold rounded-xl">
-          <div className="bg-black/50 w-full h-full px-6 py-3 text-neutral-500">
+        <button
+          className="bg-sky-600 font-bold rounded-xl"
+          onClick={handleClickCreate}
+        >
+          <div
+            className={`w-full h-full px-6 py-3 ${
+              !valid && "bg-black/50 text-neutral-500 cursor-not-allowed"
+            }`}
+          >
             Create
           </div>
         </button>
@@ -214,6 +404,23 @@ export default function Page() {
           modifyAddTrait={modifyAddTrait}
         />
       )}
+      <MintStepper
+        open={openMintStepper}
+        close={() => setOpenMintStepper(false)}
+        currStep={step}
+        errMsg={errMsg}
+      />
+      <MintSuccessCoverDialog
+        open={openMintSuccessCover}
+        close={() => {
+          setOpenMintSuccessCover(false);
+        }}
+        uri={fileUrl ?? ""}
+        contractAddress={collection?.contractAddress}
+        tokenId={tokenId ?? 0}
+        name={name ?? ""}
+        chainName={"Ganache"}
+      />
     </div>
   );
 }

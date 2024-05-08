@@ -1,5 +1,5 @@
 import React from "react";
-import { Accordion, Switch } from "@/app/ui";
+import { Accordion, Switch } from "@/ui";
 import { BiSolidDonateHeart } from "react-icons/bi";
 
 const CreatorEarnings: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({

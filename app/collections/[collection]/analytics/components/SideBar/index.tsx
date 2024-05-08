@@ -4,7 +4,7 @@ import {
   CheckBoxGroup,
   CheckBoxOption,
   SearchInput,
-} from "@/app/ui";
+} from "@/ui";
 import React from "react";
 
 interface SideBarProps extends Props {}

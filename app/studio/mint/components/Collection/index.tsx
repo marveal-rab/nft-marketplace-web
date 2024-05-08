@@ -1,7 +1,7 @@
 import { current } from "@/app/actions";
 import { NFTMarketplaceContext } from "@/contexts";
 import { CollectionData } from "@/types/collection";
-import { Graphqls } from "@/utils";
+import { API } from "@/utils/Graphql";
 import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { LuLayoutGrid } from "react-icons/lu";
@@ -25,7 +25,7 @@ const Collection: React.FC<CollectionProps> = (props) => {
       if (!curr.token) {
         return;
       }
-      const data = await Graphqls.listCollectionsForOwner(curr.token);
+      const data = await API.listCollectionsForOwner(curr.token);
       setCollections(data);
     };
     fetchCollections();

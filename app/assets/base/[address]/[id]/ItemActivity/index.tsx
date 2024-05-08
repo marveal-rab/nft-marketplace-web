@@ -1,6 +1,5 @@
-import { Accordion, Selector } from "@/app/ui";
+import { Accordion, Selector } from "@/ui";
 import { Datetimes } from "@/utils";
-import { title } from "process";
 import React from "react";
 import { BiTransfer } from "react-icons/bi";
 import { GoTag } from "react-icons/go";

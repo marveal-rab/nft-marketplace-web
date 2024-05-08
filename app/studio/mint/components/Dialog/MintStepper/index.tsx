@@ -1,34 +1,36 @@
 import { Dialog } from "@/ui";
+import React from "react";
 import { AiOutlineLoading } from "react-icons/ai";
 import { FaCheck } from "react-icons/fa";
 import { MdErrorOutline } from "react-icons/md";
 
-export interface DeployStepperDialogProps extends Props {
+interface MintStepperProps extends Props {
   open: boolean;
   close: () => void;
   currStep: number;
   errMsg?: string;
 }
 
-export const DeployStepperDialog: React.FC<DeployStepperDialogProps> = (
-  props
-) => {
+const MintStepper: React.FC<MintStepperProps> = (props) => {
   const { open, close, currStep, errMsg } = props;
 
   const steps = [
     {
-      name: "Go to your wallet to finish deploy your contract",
-      description:
-        "You'll be asked to pay gas fees and sign in order to deploy your contract on the blockchain.",
+      name: "Uploading to descentralized server",
+      description: "This may take a few minutes.",
     },
     {
-      name: "Deploying your contract",
-      description: "It may take some time for the transaction to be processed.",
+      name: "Go to your wallet to approve this transaction",
+      description: "A blockchain transaction is requiered to mint your NFT.",
+    },
+    {
+      name: "Minting your item",
+      description: "Please stay on this page and keep this browser tab open.",
     },
   ];
 
   return (
-    <Dialog open={open} close={close} title="Deploying your contract">
+    <Dialog open={open} close={close} title="Creating your item">
       <div className="mt-8 flex flex-col">
         {steps.map((step, index) => {
           return (
@@ -77,3 +79,5 @@ export const DeployStepperDialog: React.FC<DeployStepperDialogProps> = (
     </Dialog>
   );
 };
+
+export default MintStepper;
