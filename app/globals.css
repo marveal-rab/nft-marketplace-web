@@ -8,12 +8,17 @@
   --background-end-rgb: 255, 255, 255;
   --background-start-rgb: 249, 250, 251;
 
+  --scroller-thumb-rgb: 38, 38, 38;
+  --scroller-thumb-opacity: 0.5;
+  --scroller-track-rgb: 23, 23, 23;
+  --scroller-track-opacity: 0.8;
+
+  /* hidden input arrow of number */
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
-
-  input[type = "number"] {
+  input[type="number"] {
     -moz-appearance: textfield;
   }
 }
@@ -37,7 +42,4 @@ body {
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
 }

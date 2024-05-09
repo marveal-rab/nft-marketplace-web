@@ -22,7 +22,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`scroller-bold ${inter.className}`}>
         <WalletConnectProvider initialState={initialState}>
           <AppProviders>
             <div className="min-h-screen">{children}</div>

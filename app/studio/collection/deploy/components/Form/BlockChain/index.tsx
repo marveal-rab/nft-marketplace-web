@@ -1,4 +1,4 @@
-import { Dialog } from "@/ui";
+import { Dialog } from "@/app/ui";
 import React from "react";
 import { MdMoreHoriz } from "react-icons/md";
 

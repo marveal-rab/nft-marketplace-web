@@ -2,7 +2,7 @@
 
 import React from "react";
 import { FaArrowLeft, FaPlus } from "react-icons/fa";
-import { Input, TextArea } from "@/ui";
+import { Input, TextArea } from "@/app/ui";
 import Wallet from "@/app/components/Nav/WalletIcon";
 import Avatar from "@/app/components/Nav/AvatarIcon";
 import { NFTMarketplaceContext } from "@/contexts";

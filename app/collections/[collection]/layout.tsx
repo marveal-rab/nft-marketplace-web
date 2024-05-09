@@ -134,7 +134,7 @@ const Banner: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   );
 };
 
-const Tabs: React.FC<TabProps> = ({ ...props }) => {
+const Tabs: React.FC<TabProps> = (props) => {
   const { params } = props;
   const searchParams = useSearchParams();
   const selectedTab = searchParams.has("tab")

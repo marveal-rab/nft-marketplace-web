@@ -1,5 +1,5 @@
-import React from "react";
+"use client";
 
-export default function Page() {
-  return <div className="w-full h-full"></div>;
-}
+import Page from "./[path]/page";
+
+export default Page;

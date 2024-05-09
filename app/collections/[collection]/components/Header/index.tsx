@@ -1,9 +1,9 @@
 import React from "react";
-import FilterIcon from "./FilterIcon";
 import TotalItemsShow from "./TotalItemsShow";
 import ListStyleIconGroup from "./ListStyleIconGroup";
 import SortedSelector from "./SortedSelector";
-import { SearchInput } from "@/ui";
+import { SearchInput } from "@/app/ui";
+import FilterIcon from "@/app/components/Icon/filter";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   setShowSideBar: (func: (prev: boolean) => boolean) => void;

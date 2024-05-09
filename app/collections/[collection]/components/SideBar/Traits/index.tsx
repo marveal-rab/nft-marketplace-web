@@ -5,7 +5,7 @@ import {
   CheckBoxGroup,
   CheckBoxOption,
   SearchInput,
-} from "@/ui";
+} from "@/app/ui";
 
 interface TraitsProps {}
 

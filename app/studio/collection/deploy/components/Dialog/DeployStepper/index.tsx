@@ -1,4 +1,4 @@
-import { Dialog } from "@/ui";
+import { Dialog } from "@/app/ui";
 import { AiOutlineLoading } from "react-icons/ai";
 import { FaCheck } from "react-icons/fa";
 import { MdErrorOutline } from "react-icons/md";

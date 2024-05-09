@@ -1,6 +1,6 @@
 import React from "react";
-import FilterIcon from "./FilterIcon";
 import { Transition } from "@headlessui/react";
+import FilterIcon from "@/app/components/Icon/filter";
 
 interface HeaderProps {
   className?: string;

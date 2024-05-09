@@ -1,7 +1,9 @@
 "use client";
 
 import React from "react";
-import { Header, SideBar, Main } from "./components";
+import Header from "./header";
+import SideBar from "./sidebar";
+import Main from "./main";
 
 export default function Page({ params }: { params: { collection: string } }) {
   const [showSideBar, setShowSideBar] = React.useState<boolean>(true);

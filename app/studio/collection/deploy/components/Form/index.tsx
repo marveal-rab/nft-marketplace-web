@@ -2,7 +2,7 @@
 
 import React from "react";
 import Upload from "./Upload";
-import { Input } from "@/ui";
+import { Input } from "@/app/ui";
 import Blockchains from "./BlockChain";
 
 interface FormProps extends Props {

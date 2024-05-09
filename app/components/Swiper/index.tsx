@@ -4,7 +4,7 @@ import React from "react";
 import { Settings } from "react-slick";
 
 /// internal imports
-import { Carousel } from "@/ui";
+import { Carousel } from "@/app/ui";
 
 interface CardItem {
   id: string;

@@ -1,13 +1,12 @@
 "use client";
 
 import React from "react";
-import { Accordion } from "@/ui";
 import Status from "./Status";
 import CreatorEarnings from "./CreatorEarnings";
-import Price from "./Price";
-import RarityRank from "./RarityRank";
-import Currency from "./Currency";
 import Traits from "./Traits";
+import Price from "@/app/components/SideBar/price";
+import RarityRank from "@/app/components/SideBar/rarity-rank";
+import Currency from "@/app/components/SideBar/currency";
 
 const SideBar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   ...props

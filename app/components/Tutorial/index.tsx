@@ -1,4 +1,4 @@
-import { Carousel } from "@/ui";
+import { Carousel } from "@/app/ui";
 import React from "react";
 import { Settings } from "react-slick";
 

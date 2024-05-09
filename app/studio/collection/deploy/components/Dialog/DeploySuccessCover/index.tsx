@@ -1,4 +1,4 @@
-import { Cover } from "@/ui";
+import { Cover } from "@/app/ui";
 import { NFTMarketplaceContext } from "@/contexts";
 import { AddressType } from "@/types";
 import React from "react";
