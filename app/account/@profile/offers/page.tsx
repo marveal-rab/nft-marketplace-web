@@ -2,8 +2,8 @@
 
 import React from "react";
 import Header from "./header";
-import SideBar from "./sidebar";
 import Main from "./main";
+import Collection from "@/app/components/SideBar/collection";
 
 export default function Page() {
   const [showSideBar, setShowSideBar] = React.useState<boolean>(false);
@@ -18,7 +18,13 @@ export default function Page() {
       >
         {showSideBar && (
           <div className="w-1/4 min-w-60 h-full overflow-y-auto scroller max-md:hidden">
-            <SideBar />
+            <div className={`w-full h-full`}>
+              <ul>
+                <li>
+                  <Collection />
+                </li>
+              </ul>
+            </div>
           </div>
         )}
         <div className="w-full h-full mx-2 overflow-y-auto scroller">

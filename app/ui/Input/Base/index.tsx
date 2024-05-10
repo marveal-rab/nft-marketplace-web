@@ -18,7 +18,7 @@ export const Input: React.FC<InputProps> = ({
   return (
     <input
       type={type}
-      className={`outline-none border-gray-500/30 border-[1px] bg-transparent rounded-xl ${
+      className={`outline-none border-gray-500/30 hover:border-gray-500/50 border-[1px] bg-transparent rounded-xl ${
         center && "text-center"
       } ${className}`}
       value={text}

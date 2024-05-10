@@ -1,3 +1,14 @@
+import {
+  Arbitrum,
+  ArbitrumNova,
+  Avalanche,
+  Base,
+  Blast,
+  Ethereum,
+  Klaytn,
+  Polygon,
+  Zora,
+} from "@/app/components/Icon";
 import { Dialog } from "@/app/ui";
 import React from "react";
 import { MdMoreHoriz } from "react-icons/md";
@@ -18,7 +29,7 @@ interface BlockchainsDialogProps extends Props {
 interface BlockchainMetadata {
   id: number;
   name: string;
-  icon: string;
+  icon: React.ReactNode;
   description?: string;
   cost: string;
   show?: boolean;
@@ -57,11 +68,7 @@ const BlockchainsDialog: React.FC<BlockchainsDialogProps> = (props) => {
                     close();
                   }}
                 >
-                  <img
-                    src={item.icon}
-                    alt={item.name}
-                    className="rounded-full w-8 h-8"
-                  />
+                  {item.icon}
                   <span className="font-semibold text-lg">{item.name}</span>
                 </div>
               );
@@ -91,11 +98,9 @@ const BlockchainMetadata: React.FC<BlockchainMetadataProps> = (props) => {
       }`}
       onClick={onClick}
     >
-      <img
-        src={metadata.icon}
-        alt={metadata.name}
-        className="w-8 h-8 rounded-full mb-6"
-      />
+      <div className="w-8 h-8 rounded-full mb-6 overflow-hidden">
+        {metadata.icon}
+      </div>
       <div className="flex flex-col gap-3">
         <span className="font-semibold text-lg">{metadata.name}</span>
         <div className="flex">
@@ -137,7 +142,7 @@ const Blockchains: React.FC<BlockchainsProps> = (props) => {
     {
       id: 0,
       name: "Ethereum",
-      icon: "/static/images/icons/ethereum.svg",
+      icon: <Ethereum />,
       description: "Most popular",
       cost: "US$13.25",
       show: true,
@@ -145,7 +150,7 @@ const Blockchains: React.FC<BlockchainsProps> = (props) => {
     {
       id: 1,
       name: "Polygon",
-      icon: "/static/images/icons/polygon.svg",
+      icon: <Polygon />,
       description: "Cheaper",
       cost: "US$0.03",
       show: true,
@@ -153,49 +158,49 @@ const Blockchains: React.FC<BlockchainsProps> = (props) => {
     {
       id: 2,
       name: "Arbitrum",
-      icon: "/static/images/icons/arbitrum.svg",
+      icon: <Arbitrum />,
       cost: "US$0.01",
     },
     {
       id: 3,
       name: "Arbitrum Nova",
-      icon: "/static/images/icons/arbitrum-nova.svg",
+      icon: <ArbitrumNova />,
       cost: "US$0.02",
     },
     {
       id: 4,
       name: "Avalanche",
-      icon: "/static/images/icons/avalanche.svg",
+      icon: <Avalanche />,
       cost: "US$0.02",
     },
     {
       id: 5,
       name: "Base",
-      icon: "/static/images/icons/base.svg",
+      icon: <Base />,
       cost: "US$0.01",
     },
     {
       id: 6,
       name: "Blast",
-      icon: "/static/images/icons/blast.svg",
+      icon: <Blast />,
       cost: "US$0.02",
     },
     {
       id: 7,
       name: "Klaytn",
-      icon: "/static/images/icons/klaytn.svg",
+      icon: <Klaytn />,
       cost: "US$0.02",
     },
     {
       id: 8,
       name: "Optimism",
-      icon: "/static/images/icons/optimism.svg",
+      icon: <Klaytn />,
       cost: "US$0.02",
     },
     {
       id: 9,
       name: "Zora",
-      icon: "/static/images/icons/zora-orb.svg",
+      icon: <Zora />,
       cost: "US$0.02",
     },
   ];

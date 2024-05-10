@@ -68,7 +68,7 @@ const MenuTab: React.FC<MenuTabProps> = (props) => {
         {tab.title} <IoIosArrowDown size={16} />
       </span>
       {open && (
-        <div className="absolute rounded-xl w-48 top-14 -left-[50%] p-1 bg-neutral-900 text-neutral-400 z-10">
+        <div className="absolute rounded-xl w-48 top-14 -left-[50%] p-1 bg-neutral-900 text-neutral-400 z-20">
           {tab.children.map((el, index) => {
             return (
               <div

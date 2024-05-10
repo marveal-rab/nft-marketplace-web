@@ -1,8 +1,8 @@
 "use client";
 
+import FilterIcon from "@/app/components/Icon/filter";
+import Collection from "@/app/components/SideBar/collection";
 import React from "react";
-import Header from "./header";
-import SideBar from "./sidebar";
 import Main from "./main";
 
 interface PageProps {
@@ -12,26 +12,30 @@ interface PageProps {
 }
 
 export default function Page(props: PageProps) {
-  const path = props.params.path;
-  const notFound =
-    path !== undefined && path !== "collected" && path !== "created";
-  if (notFound) {
-    return null;
-  }
-
   const [showSideBar, setShowSideBar] = React.useState<boolean>(false);
-
   return (
     <div className="w-full h-full">
       <div className="w-full h-20 items-center sticky top-40 z-10">
-        <Header className="w-full h-full" setShowSideBar={setShowSideBar} />
+        <div className="flex gap-2 w-full h-full items-center justify-between">
+          <FilterIcon
+            onClick={(event) => {
+              setShowSideBar((prev: boolean) => !prev);
+            }}
+          />
+        </div>
       </div>
       <div
         className={`flex w-full h-[calc(100vh-240px)] sticky top-60 pt-2 pb-8`}
       >
         {showSideBar && (
           <div className="w-1/4 min-w-60 h-full overflow-y-auto scroller max-md:hidden">
-            <SideBar />
+            <div className={`w-full h-full`}>
+              <ul>
+                <li>
+                  <Collection />
+                </li>
+              </ul>
+            </div>
           </div>
         )}
         <div className="w-full h-full mx-2 overflow-y-auto scroller">

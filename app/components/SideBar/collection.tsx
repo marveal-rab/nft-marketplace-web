@@ -1,5 +1,4 @@
 import { Accordion, SearchInput } from "@/app/ui";
-import React from "react";
 
 const Collection: React.FC<Props> = (props) => {
   return (
@@ -17,16 +16,4 @@ const Collection: React.FC<Props> = (props) => {
   );
 };
 
-const SideBar: React.FC<Props> = ({ ...props }) => {
-  return (
-    <div className={`w-full h-full ${props.className}`}>
-      <ul>
-        <li>
-          <Collection />
-        </li>
-      </ul>
-    </div>
-  );
-};
-
-export default SideBar;
+export default Collection;

@@ -1,8 +1,10 @@
 import React from "react";
+import { FaCheck } from "react-icons/fa";
 
 export interface CheckBoxOption {
-  label: string;
+  label?: string;
   value: string;
+  labelBefore?: React.ReactNode;
   after?: React.ReactNode;
 }
 
@@ -13,7 +15,8 @@ interface CheckBoxProps extends CheckBoxOption {
 }
 
 export const CheckBox: React.FC<CheckBoxProps> = ({ ...props }) => {
-  const { className, label, value, isChecked, onChange, after } = props;
+  const { className, label, value, isChecked, onChange, labelBefore, after } =
+    props;
 
   const handleClick = () => {
     onChange(value);
@@ -26,27 +29,21 @@ export const CheckBox: React.FC<CheckBoxProps> = ({ ...props }) => {
     >
       <div className="flex items-center gap-3">
         <div
-          className={`w-4 h-4 border border-gray-400 rounded ${
+          className={`w-6 h-6 border border-gray-400 rounded ${
             isChecked ? "bg-blue-500" : ""
           }`}
         >
           {isChecked && (
-            <div className="flex items-center justify-center">
-              <svg
-                className="w-3 h-3 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M8.293 14.707a1 1 0 0 0 1.414 0l6-6a1 1 0 1 0-1.414-1.414L9 12.586l-2.293-2.293a1 1 0 0 0-1.414 1.414l3 3z"
-                />
-              </svg>
+            <div className="flex items-center justify-center w-full h-full">
+              <FaCheck size={14} />
             </div>
           )}
         </div>
-        <span>{label}</span>
+        {label && (
+          <span className="flex items-center gap-2">
+            {labelBefore} {label}
+          </span>
+        )}
       </div>
       {after && <div>{after}</div>}
     </div>
@@ -61,7 +58,7 @@ interface CheckBoxGroupProps {
   multiple?: boolean;
 }
 
-export const CheckBoxGroup: React.FC<CheckBoxGroupProps> = ({ ...props }) => {
+export const CheckBoxGroup: React.FC<CheckBoxGroupProps> = (props) => {
   const {
     className,
     options,
@@ -89,16 +86,17 @@ export const CheckBoxGroup: React.FC<CheckBoxGroupProps> = ({ ...props }) => {
   };
 
   return (
-    <div className={`flex flex-col ${className}`}>
+    <div className={`flex flex-col gap-4 ${className}`}>
       {options.map((option) => (
         <CheckBox
           key={option.value}
           label={option.label}
           value={option.value}
           after={option.after}
+          labelBefore={option.labelBefore}
           isChecked={selectedValues.includes(option.value)}
           onChange={handleCheckboxChange}
-          className="px-3 py-2"
+          className="px-4 py-3"
         />
       ))}
     </div>

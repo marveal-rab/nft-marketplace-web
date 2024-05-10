@@ -156,7 +156,9 @@ interface SalesItem {
   rate: number;
 }
 
-interface SalesItemProps extends SalesItem, Props {}
+interface SalesItemProps extends SalesItem, Props {
+  title: string;
+}
 
 const SalesItem: React.FC<SalesItemProps> = ({ ...props }) => {
   const { img, title, rarity, time, price, rate, className } = props;
