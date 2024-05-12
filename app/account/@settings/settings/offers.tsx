@@ -4,7 +4,7 @@ import React from "react";
 
 const Offers: React.FC<Props> = (props) => {
   return (
-    <div className="mx-16">
+    <div className="ml-16">
       <div className="mt-6 my-12">
         <span className="text-2xl font-bold">Offer protection</span>
         <div className="flex gap-2 justify-between items-center">

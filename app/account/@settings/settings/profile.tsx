@@ -6,7 +6,7 @@ import { MdOutlineContentCopy } from "react-icons/md";
 
 const Profile: React.FC<Props> = (props) => {
   return (
-    <div className="mx-16">
+    <div className="ml-16">
       <h2 className="text-3xl font-bold my-12">Profile details</h2>
       <div className="flex gap-6">
         <div className="w-1/2 min-w-[400px] flex flex-col gap-4">

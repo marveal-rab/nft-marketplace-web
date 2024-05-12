@@ -97,7 +97,7 @@ const Item: React.FC<ItemProps> = (props) => {
 
 const Notifications: React.FC<Props> = (props) => {
   return (
-    <div className="mx-16 mb-20">
+    <div className="ml-16 mb-20">
       <h2 className="text-3xl font-bold my-12">Notification settings</h2>
       <div>
         <span>
